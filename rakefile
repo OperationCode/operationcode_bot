@@ -1,0 +1,21 @@
+desc 'Runs all tests'
+task :default do
+  base_dir = File.expand_path(File.dirname(__FILE__))
+  lib_dir  = File.join(base_dir, "lib")
+  test_dir = File.join(base_dir, "test")
+
+  $LOAD_PATH.unshift(base_dir)
+  $LOAD_PATH.unshift(lib_dir)
+
+  require 'test/unit'
+
+  ENV['SLACK_TOKEN'] = 'test_token'
+  ENV['SLACK_CLIENT_ID'] = 'test_client_id'
+  ENV['SLACK_CLIENT_SECRET'] = 'test_client_id'
+  ENV['AIRTABLE_API_KEY'] = 'FAKEAIRTABLEKEY'
+  ENV['AIRTABLE_MENTORSHIP_SQUADS_KEY'] = 'FAKEMENTORSHIPSQUADSKEY'
+  ENV['INVITE_USER'] = 'true'
+  ENV['SLACK_CHANNEL_1ST_SQUAD'] = '1STSQUADID'
+
+  exit Test::Unit::AutoRunner.run(true, test_dir)
+end
