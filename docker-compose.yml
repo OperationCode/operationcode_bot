@@ -1,0 +1,8 @@
+---
+operationcode_bot:
+  build: .
+  command: bundle exec rackup -p 4567
+  ports:
+    - "4567:4567"
+  environment:
+    - RACK_ENV=production
