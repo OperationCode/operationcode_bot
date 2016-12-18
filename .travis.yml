@@ -1,11 +1,11 @@
-language: ruby
+#language: ruby
 
 sudo: required
 
 services:
     - docker
 
-before_install:
+script:
   - docker build . -t operationcode/operationcode_bot:latest
   - docker run operationcode/operationcode_bot /bin/sh -c 'cd /app && bundle exec rake'
 
