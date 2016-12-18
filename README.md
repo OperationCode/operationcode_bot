@@ -1,7 +1,7 @@
-# OperationCodeBot
+# [OperationCodeBot](https://github.com/OperationCode/operationcode_bot)
 
 [![Build Status](https://travis-ci.org/OperationCode/operationcode_bot.svg?branch=master)](https://travis-ci.org/OperationCode/operationcode_bot)
-[![Code Climate](https://codeclimate.com/github/OperationCode/operationcode_bot/badges/a.svg)](https://codeclimate.com/github/OperationCode/operationcode_bot)
+[![Code Climate](https://codeclimate.com/github/OperationCode/operationcode_bot/badges/gpa.svg)](https://codeclimate.com/github/OperationCode/operationcode_bot)
 [![Test Coverage](https://codeclimate.com/github/OperationCode/operationcode_bot/badges/coverage.svg)](https://codeclimate.com/github/OperationCode/operationcode_bot/coverage)
 
 OperationCode Bot is a bot built to deal with the [Slack Events API](https://api.slack.com/events).
@@ -12,7 +12,6 @@ When a subscribed event occurs:
 
 ## Installation
 
-https://github.com/OperationCode/operationcode_bot
 * Clone this repo
 * Run
 
