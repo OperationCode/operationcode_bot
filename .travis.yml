@@ -1,4 +1,21 @@
 language: ruby
+
+sudo: required
+
+services:
+    - docker
+
+before_install:
+  - docker build . -t operationcode/operationcode_bot:latest
+  - docker run operationcode/operationcode_bot /bin/sh -c 'cd /app && bundle exec rake'
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  docker build . -t operationcode/operationcode_bot:latest
+  docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  docker push operationcode/operationcode_bot;
+  fi
+
 addons:
   code_climate:
     repo_token: c4fda4d7944229b1f03f2a7e996730e7ed025196631e3ef6d07ae19ad5e2328e
