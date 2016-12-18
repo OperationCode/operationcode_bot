@@ -1,8 +1,22 @@
----
-operationcode_bot:
-  build: .
-  command: bundle exec rackup -p 4567
-  ports:
-    - "4567:4567"
-  environment:
-    - RACK_ENV=production
+version: '2'
+services:
+  app:
+    image: operationcode/operationcode_bot
+    environment:
+      AIRTABLE_API_KEY: CHANGE_ME
+      AIRTABLE_MENTORSHIP_SQUADS_KEY: CHANGE_ME
+      INVITE_USER: 'false'
+      RACK_ENV: production
+      SLACK_CHANNEL_1ST_SQUAD: CHANGE_ME
+      SLACK_CHANNEL_2ND_SQUAD: CHANGE_ME
+      SLACK_CHANNEL_3RD_SQUAD: CHANGE_ME
+      SLACK_CLIENT_ID: CHANGE_ME
+      SLACK_CLIENT_SECRET: CHANGE_ME
+      SLACK_TOKEN: CHANGE_ME
+    ports:
+    - 4567:4567/tcp
+    command:
+    - rackup
+    - -p
+    - '4567'
+
