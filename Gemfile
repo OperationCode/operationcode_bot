@@ -17,4 +17,6 @@ group :test do
   gem 'test-unit'
   gem 'rack-test'
   gem 'mocha'
+  gem "simplecov"
+  gem "codeclimate-test-reporter", "~> 1.0.0"
 end

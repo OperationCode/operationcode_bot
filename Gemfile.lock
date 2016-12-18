@@ -23,11 +23,15 @@ GEM
       tzinfo (~> 1.1)
     airtable (0.0.9)
       httparty
+    codeclimate-test-reporter (1.0.3)
+      simplecov
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
+    docile (1.1.5)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    json (2.0.2)
     metaclass (0.0.4)
     method_source (0.8.2)
     minitest (5.10.1)
@@ -46,6 +50,11 @@ GEM
       rack (>= 1.0)
     rake (12.0.0)
     rb-readline (0.5.3)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -64,6 +73,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   airtable
+  codeclimate-test-reporter (~> 1.0.0)
   httparty
   mocha
   operationcode-airtable!
@@ -72,6 +82,7 @@ DEPENDENCIES
   rack-test
   rake
   rb-readline
+  simplecov
   sinatra
   test-unit
 
