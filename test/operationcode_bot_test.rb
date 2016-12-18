@@ -21,6 +21,12 @@ class OperationcodeBotTest < Test::Unit::TestCase
     assert_equal '{"challenge":"yeEDKbeqUN9bAGUeP7sRDqTvF1CAlLdJjyNl20QAStFGXPDCNak6"}', last_response.body
   end
 
+  def test_it_responds_to_ping
+    get '/ping'
+    assert last_response.ok?
+    assert_equal ({ success: :ok, data: :pong }.to_json), last_response.body
+  end
+
   def test_it_can_oauth
     client_id = ENV['SLACK_CLIENT_ID']
     client_secret = ENV['SLACK_CLIENT_SECRET']

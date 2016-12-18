@@ -13,6 +13,10 @@ before do
   content_type 'application/json'
 end
 
+get '/ping' do
+  { success: :ok, data: :pong }.to_json
+end
+
 post '/event' do
   event_data = read_post_body
   logger.info "Received Event with data #{event_data}"
