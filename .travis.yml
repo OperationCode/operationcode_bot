@@ -1,5 +1,3 @@
-#language: ruby
-
 sudo: required
 
 install: true
