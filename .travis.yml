@@ -11,10 +11,10 @@ before_install:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-  docker build . -t operationcode/operationcode_bot:latest
-  docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  docker push operationcode/operationcode_bot;
-  fi
+    docker build . -t operationcode/operationcode_bot:latest
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push operationcode/operationcode_bot;
+    fi
 
 addons:
   code_climate:
