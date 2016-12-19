@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/OperationCode/operationcode-airtable
-  revision: 827970bf3405c517b6ba457d701a3541017fdbc3
+  revision: d9a13577b90ac3af599b08d058979750b4025a46
   specs:
     operationcode-airtable (0.2.1)
       activesupport
@@ -8,15 +8,16 @@ GIT
 
 GIT
   remote: https://github.com/OperationCode/operationcode-slack
-  revision: b4b6f80bfa36645a3203fcc5397219c19cd50e7e
+  revision: 563402c58d28848ee47146f7db2de734c4ba26e3
   specs:
-    operationcode-slack (0.1.0)
+    operationcode-slack (0.2.1)
+      activesupport
       httparty
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.0.0.1)
+    activesupport (5.0.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -26,7 +27,7 @@ GEM
     codeclimate-test-reporter (1.0.3)
       simplecov
     coderay (1.1.1)
-    concurrent-ruby (1.0.2)
+    concurrent-ruby (1.0.4)
     docile (1.1.5)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)

@@ -6,6 +6,15 @@ class Event
     @logger = logger
   end
 
+  # Make sure we are in dev mode unless explicitly disabled
+  def dev_mode?
+    ENV['DEV_MODE'] == 'true' ? true : false
+  end
+
+  def template_path
+    Pathname.new(__dir__) + '..' + 'views' + self.class.name.to_s.underscore
+  end
+
   private
 
   # Interface for logging via Sinatra or STDOUT

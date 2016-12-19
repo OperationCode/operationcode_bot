@@ -11,38 +11,24 @@ class Event::TeamJoinTest < Test::Unit::TestCase
     assert_instance_of Event::TeamJoin, Event::TeamJoin.new(mock_team_join_event)
   end
 
-  def test_it_invites_a_user_to_a_channel_if_an_env_var_is_set
-    Airtables::MentorshipSquads.stubs(:least_populated).returns('1st')
-    assert_equal ENV['INVITE_USER'], 'true'
+  def test_it_sends_a_message_to_the_user_if_an_env_var_is_set
+    @user = mock
+    @user.stubs(:name).returns('FAKE.USERNAME')
+    mock_im = mock
+    template = File.read('views/event/team_join/welcome_message.txt.erb')
+    mock_im.stubs(:deliver).with(ERB.new(template).result(binding))
 
-    HTTParty.expects(:post)
-      .with('https://slack.com/api/channels.invite', body: { token: nil, user: 'FAKEUSERID', channel: '1STSQUADID' })
-      .returns({ok: true}.to_json)
+    ENV['DEV_MODE'] = 'false'
+    assert_equal 'false', ENV['DEV_MODE']
+    Operationcode::Slack::Im.expects(:new).with(user: '@FAKE.USERNAME').returns(mock_im)
 
-    event = Event::TeamJoin.new(mock_team_join_event)
-    event.process
+    Event::TeamJoin.new(mock_team_join_event).process
 
-    ENV['INVITE_USER'] = 'false'
-    refute_equal ENV['INVITE_USER'], 'true'
+    ENV['DEV_MODE'] = 'true'
+    assert_equal 'true', ENV['DEV_MODE']
+    Operationcode::Slack::Im.expects(:new).with(user: '@rickr').returns(mock_im)
 
-    event = Event::TeamJoin.new(mock_team_join_event)
-    event.process
-  end
-
-  def test_it_creates_an_airtable_record
-    Airtables::MentorshipSquads.expects(:least_populated).returns('1st')
-    Airtables::MentorshipSquads.expects(:create).with(slack_username: 'FAKE.USERNAME', squad: '1st')
-
-    event = Event::TeamJoin.new(mock_team_join_event)
-    event.process
-  end
-
-  def test_it_doesnt_create_a_record_if_the_slack_username_exists
-    Event::TeamJoin.any_instance.stubs(:user_exists?).returns(::Airtable::Record.new(slack_username: 'FAKE_USERNAME'))
-    Airtables::MentorshipSquads.expects(:create).never
-
-    event = Event::TeamJoin.new(mock_team_join_event)
-    event.process
+    Event::TeamJoin.new(mock_team_join_event).process
   end
 
   def mock_team_join_event

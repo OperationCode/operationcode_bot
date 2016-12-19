@@ -61,19 +61,17 @@ class OperationcodeBotTest < Test::Unit::TestCase
     assert_equal '{}', last_response.body
   end
 
-  def test_it_does_something_on_new_user_join
-    Operationcode::Airtable.any_instance.stubs(:all).returns([
-      Airtable::Record.new(slack_username: 'test1', squad: '1st'),
-      Airtable::Record.new(slack_username: 'test2', squad: '2nd'),
-      Airtable::Record.new(slack_username: 'test3', squad: '2nd'),
-      Airtable::Record.new(slack_username: 'test4', squad: '3rd'),
-      Airtable::Record.new(slack_username: 'test5', squad: '3rd')
-    ])
+  def test_it_welcomes_the_user_on_new_user_join
     Operationcode::Airtable.any_instance.stubs(:find_by).returns(nil)
+    template = File.read('views/event/team_join/welcome_message.txt.erb')
+    @user = mock
+    @user.stubs(:name).returns('FAKEUSERNAME')
+    mock_im = mock
+    mock_im.expects(:deliver).with(ERB.new(template).result(binding))
 
-    HTTParty.expects(:post)
-      .with('https://slack.com/api/channels.invite', body: { token: 'FAKE_TOKEN', user: 'FAKEUSERID', channel: '1STSQUADID' })
-      .returns({ok: true}.to_json)
+    Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
+
+    Operationcode::Slack::Im.expects(:new).with(user: '@FAKEUSERNAME').returns(mock_im)
 
     team_join_data = {
       token: 'FAKE_TOKEN',
