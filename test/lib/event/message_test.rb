@@ -12,7 +12,7 @@ class Event::MessageTest < Test::Unit::TestCase
   end
 
   def test_a_user_is_presented_with_a_menu_if_given_an_unknown_message
-    Operationcode::Slack::Im.any_instance.expects(:deliver).with('blah')
+    Operationcode::Slack::Im.any_instance.expects(:deliver).with("Welcome message\n")
     Event::Message.new(mock_message_event).process
   end
 
