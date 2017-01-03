@@ -11,12 +11,17 @@ class Event::MessageTest < Test::Unit::TestCase
     assert_instance_of Event::Message, Event::Message.new(mock_message_event)
   end
 
-  def test_a_user_can_decline_the_squad_invite
-    Event::Message.any_instance.expects(:invite_user_to).never
-    Event::Message.any_instance.expects(:save_user_to_aitables!).never
-
-    Event::Message.new(negative_mock_message_event).process
+  def test_a_user_is_presented_with_a_menu_if_given_an_unknown_message
+    Operationcode::Slack::Im.any_instance.expects(:deliver).with('blah')
+    Event::Message.new(mock_message_event).process
   end
+
+  #def test_a_user_can_decline_the_squad_invite
+  #  Event::Message.any_instance.expects(:invite_user_to).never
+  #  Event::Message.any_instance.expects(:save_user_to_aitables!).never
+
+  #  Event::Message.new(negative_mock_message_event).process
+  #end
 
   #def test_it_invites_a_user_to_a_channel_if_an_env_var_is_set
   #  Airtables::MentorshipSquads.stubs(:least_populated).returns('1st')

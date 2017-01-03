@@ -8,16 +8,39 @@ class Event
   class Message < Event
     attr_reader :user
 
+    KEYWORDS = %q(help ruby)
+    ACTIONABLE_KEYWORD = 'yes'
+
     def initialize(data, token: nil, logger: nil)
+      @message = data['event']['text']
+      @user = Operationcode::Slack::User.new(data['event']['user'])
+
       super
     end
 
     def process
-      @user = Operationcode::Slack::User.new(@data['event']['user'])
-      add_user if user_wants_to_join?
+      case @message
+      when ACTIONABLE_KEYWORD
+        add_user
+      when KEYWORDS[@message]
+        send_message_for @message
+      else
+        send_message_for :help_menu
+      end
+    end
+
+    def send_message_for(type)
+      puts "Sending message #{type}"
+      template = File.read(template_path + "#{type}_message.txt.erb")
+      Operationcode::Slack::Im.new(user: resolve_user_name).deliver(ERB.new(template).result(binding))
     end
 
     private
+
+    def resolve_user_name
+      production_mode? ? "@#{user.name}" : '@rickr'
+    end
+
 
     def user_wants_to_join?
       @data['event']['text'].downcase != 'no'
