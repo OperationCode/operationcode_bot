@@ -68,6 +68,7 @@ class OperationcodeBotTest < Test::Unit::TestCase
     @user.stubs(:name).returns('FAKEUSERNAME')
     mock_im = mock
     mock_im.expects(:deliver).with(ERB.new(template).result(binding))
+    ENV['PRODUCTION_MODE'] = 'true'
 
     Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
 

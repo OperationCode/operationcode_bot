@@ -4,11 +4,11 @@ require "mocha/test_unit"
 
 class EventTest < Test::Unit::TestCase
   def test_it_checks_for_dev_mode
-    ENV['DEV_MODE'] = 'true'
-    assert Event.new('fake data').dev_mode?
+    ENV['PRODUCTION_MODE'] = 'true'
+    assert Event.new('fake data').production_mode?
 
-    ENV['DEV_MODE'] = 'false'
-    refute Event.new('fake data').dev_mode?
+    ENV['PRODUCTION_MODE'] = 'false'
+    refute Event.new('fake data').production_mode?
   end
 
   def test_it_sets_the_template_path

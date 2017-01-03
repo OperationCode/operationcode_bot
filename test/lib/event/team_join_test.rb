@@ -18,14 +18,14 @@ class Event::TeamJoinTest < Test::Unit::TestCase
     template = File.read('views/event/team_join/welcome_message.txt.erb')
     mock_im.stubs(:deliver).with(ERB.new(template).result(binding))
 
-    ENV['DEV_MODE'] = 'false'
-    assert_equal 'false', ENV['DEV_MODE']
+    ENV['PRODUCTION_MODE'] = 'true'
+    assert_equal 'true', ENV['PRODUCTION_MODE']
     Operationcode::Slack::Im.expects(:new).with(user: '@FAKE.USERNAME').returns(mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
 
-    ENV['DEV_MODE'] = 'true'
-    assert_equal 'true', ENV['DEV_MODE']
+    ENV['PRODUCTION_MODE'] = 'false'
+    assert_equal 'false', ENV['PRODUCTION_MODE']
     Operationcode::Slack::Im.expects(:new).with(user: '@rickr').returns(mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process

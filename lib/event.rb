@@ -7,8 +7,8 @@ class Event
   end
 
   # Make sure we are in dev mode unless explicitly disabled
-  def dev_mode?
-    ENV['DEV_MODE'] == 'true' ? true : false
+  def production_mode?
+    ENV['PRODUCTION_MODE'] == 'true' ? true : false
   end
 
   def template_path

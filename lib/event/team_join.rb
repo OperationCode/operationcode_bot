@@ -17,6 +17,7 @@ class Event
 
     def process
       @user = Operationcode::Slack::User.new(@data['event']['user'])
+      log "Production mode: #{production_mode?}"
       log "Welcoming user #{resolve_user_name}"
       Operationcode::Slack::Im.new(user: resolve_user_name).deliver(ERB.new(@template).result(binding))
     end
@@ -24,7 +25,7 @@ class Event
     private
 
     def resolve_user_name
-      dev_mode? ? '@rickr' : "@#{user.name}"
+      production_mode? ? "@#{user.name}" : '@rickr'
     end
   end
 end
