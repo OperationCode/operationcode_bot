@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: https://github.com/OperationCode/operationcode-slack
-  revision: 563402c58d28848ee47146f7db2de734c4ba26e3
+  revision: 8442324cb817d9119cb9d55bd572a7aed0fec5e2
   specs:
-    operationcode-slack (0.2.1)
+    operationcode-slack (0.2.2)
       activesupport
       httparty
 
@@ -24,7 +24,7 @@ GEM
       tzinfo (~> 1.1)
     airtable (0.0.9)
       httparty
-    codeclimate-test-reporter (1.0.3)
+    codeclimate-test-reporter (1.0.4)
       simplecov
     coderay (1.1.1)
     concurrent-ruby (1.0.4)
