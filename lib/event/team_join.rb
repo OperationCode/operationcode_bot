@@ -17,7 +17,7 @@ class Event
 
     def process
       @user = Operationcode::Slack::User.new(@data['event']['user'])
-      @logger.try(:info, "Welcoming user #{resolve_user_name}")
+      log "Welcoming user #{resolve_user_name}"
       Operationcode::Slack::Im.new(user: resolve_user_name).deliver(ERB.new(@template).result(binding))
     end
 
