@@ -54,6 +54,14 @@ def team_join(data, token: nil)
   empty_response
 end
 
+def message(data, token: nil)
+  logger.info "New message recieved: #{data}"
+
+  Event::Message.new(data, token: token, logger: logger).process
+
+  empty_response
+end
+
 def empty_response
   {}.to_json
 end
