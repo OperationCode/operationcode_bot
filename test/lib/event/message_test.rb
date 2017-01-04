@@ -12,9 +12,19 @@ class Event::MessageTest < Test::Unit::TestCase
   end
 
   def test_a_user_is_presented_with_a_menu_if_given_an_unknown_message
-    Operationcode::Slack::Im.any_instance.expects(:deliver).with("Welcome message\n")
+    mock_template :help_menu_message
+    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_menu_message))
     Event::Message.new(mock_message_event).process
+
+    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_menu_message))
+    Event::Message.new(mock_message_event.merge({ 'event' => { 'text' => 'r', 'user' => 'FAKEUSERID' } })).process
   end
+
+  def mock_template(file_name)
+    template = File.read("views/event/message/#{file_name}.txt.erb")
+    ERB.new(template).result(binding)
+  end
+
 
   #def test_it_invites_a_user_to_a_channel_if_an_env_var_is_set
   #  Airtables::MentorshipSquads.stubs(:least_populated).returns('1st')

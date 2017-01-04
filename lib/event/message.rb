@@ -8,7 +8,11 @@ class Event
   class Message < Event
     attr_reader :user
 
-    KEYWORDS = %q(help ruby)
+    KEYWORDS = [
+      { name: 'ruby', help_text: 'Get ruby resources' },
+      { name: 'help', help_text: 'This message' }
+    ]
+
     ACTIONABLE_KEYWORD = 'yes'
 
     def initialize(data, token: nil, logger: nil)
@@ -19,23 +23,28 @@ class Event
     end
 
     def process
+      # All of this menu stuff should probably get moved to its own class
       case @message
       when ACTIONABLE_KEYWORD
         add_user
-      when KEYWORDS[@message]
+      when keywords.include?(@message)
         send_message_for @message
       else
         send_message_for :help_menu
       end
     end
 
+    def keywords
+      KEYWORDS.collect(&:keys)
+    end
+
+    private
+
     def send_message_for(type)
       puts "Sending message #{type}"
       template = File.read(template_path + "#{type}_message.txt.erb")
       Operationcode::Slack::Im.new(user: resolve_user_name, channel: @channel).deliver(ERB.new(template).result(binding))
     end
-
-    private
 
     def resolve_user_name
       production_mode? ? user.id : 'U08U56D5K'
