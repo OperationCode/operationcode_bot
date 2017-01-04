@@ -1,4 +1,2 @@
 I'm sorry but I didn't understand that. Here's what I can help with:
-<% Event::Message::KEYWORDS.each do |keyword| %>
-  <%= keyword[:name] %> - <%= keyword[:help_text] %>
-<% end %>
+<%= ERB.new(File.open(File.join('views', 'event', 'message', '_keyword_list.txt.erb')).read).result(binding) %>

@@ -1,0 +1,6 @@
+Hi <% @user.name %>,
+
+I'm operationcodebot, your very own guide to get you started on your path to coding.
+
+Here's what I know how to help with. Simply type one of these words and I'll give you more details:
+<%= ERB.new(File.open(File.join('views', 'event', 'message', '_keyword_list.txt.erb')).read).result(binding) %>
