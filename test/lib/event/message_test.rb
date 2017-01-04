@@ -16,13 +16,6 @@ class Event::MessageTest < Test::Unit::TestCase
     Event::Message.new(mock_message_event).process
   end
 
-  #def test_a_user_can_decline_the_squad_invite
-  #  Event::Message.any_instance.expects(:invite_user_to).never
-  #  Event::Message.any_instance.expects(:save_user_to_aitables!).never
-
-  #  Event::Message.new(negative_mock_message_event).process
-  #end
-
   #def test_it_invites_a_user_to_a_channel_if_an_env_var_is_set
   #  Airtables::MentorshipSquads.stubs(:least_populated).returns('1st')
   #  assert_equal ENV['INVITE_USER'], 'true'

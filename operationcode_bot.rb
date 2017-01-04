@@ -57,9 +57,17 @@ end
 def message(data, token: nil)
   logger.info "New message recieved: #{data}"
 
-  Event::Message.new(data, token: token, logger: logger).process
+  if bot_message?
+    logger.info 'Skipping bot message'
+  else
+    Event::Message.new(data, token: token, logger: logger).process
+  end
 
   empty_response
+end
+
+def bot_message?(data)
+  data['event']['subtype'] == 'bot_message'
 end
 
 def empty_response
