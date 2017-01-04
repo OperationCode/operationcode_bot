@@ -56,7 +56,7 @@ class Event
 
     def add_user
       if user_exists?
-        log "user #{@user.name} already exists"
+        log "user #{user.name} already exists"
       else
         invite_user_to least_populated_squad
         save_user_to_airtables!
@@ -64,7 +64,7 @@ class Event
     end
 
     def user_exists?
-      Airtables::MentorshipSquads.user_exists?(@user.name)
+      Airtables::MentorshipSquads.user_exists?(user.name)
     end
 
     def invite_user_to(squad)
