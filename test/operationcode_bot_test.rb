@@ -72,7 +72,7 @@ class OperationcodeBotTest < Test::Unit::TestCase
 
     Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
 
-    Operationcode::Slack::Im.expects(:new).with(user: '@FAKEUSERNAME').returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(mock_im)
 
     team_join_data = {
       token: 'FAKE_TOKEN',

@@ -20,13 +20,13 @@ class Event::TeamJoinTest < Test::Unit::TestCase
 
     ENV['PRODUCTION_MODE'] = 'true'
     assert_equal 'true', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: '@FAKE.USERNAME').returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
 
     ENV['PRODUCTION_MODE'] = 'false'
     assert_equal 'false', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: '@rickr').returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K').returns(mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
   end

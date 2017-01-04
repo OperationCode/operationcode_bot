@@ -1,2 +1,2 @@
 I'm sorry but I didn't understand that. Here's what I can help with:
-<%= ERB.new(File.open(File.join('views', 'event', 'message', '_keyword_list.txt.erb')).read).result(binding) %>
+<%= Event::Message.keyword_help_text %>

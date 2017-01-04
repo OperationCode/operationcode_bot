@@ -15,6 +15,12 @@ class Event
 
     ACTIONABLE_KEYWORD = 'yes'
 
+    def self.keyword_help_text
+      KEYWORDS.each do |keyword|
+        "#{keyword[:name]} - #{keyword[:help_text]}\n"
+      end
+    end
+
     def initialize(data, token: nil, logger: nil)
       @message = data['event']['text']
       @user = Operationcode::Slack::User.new(data['event']['user'])
