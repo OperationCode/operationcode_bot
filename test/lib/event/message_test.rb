@@ -12,13 +12,20 @@ class Event::MessageTest < Test::Unit::TestCase
     assert_instance_of Event::Message, Event::Message.new(mock_message_event)
   end
 
-  def test_a_user_is_presented_with_a_menu_if_given_an_unknown_message
-    mock_template :help_menu_message
-    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_menu_message))
+  def test_presents_the_help_menu_if_given_an_unknown_message
+    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_message))
     Event::Message.new(mock_message_event).process
 
-    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_menu_message))
+    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_message))
     Event::Message.new(mock_message_event.merge({ 'event' => { 'text' => 'r', 'user' => 'FAKEUSERID' } })).process
+  end
+
+  def test_displays_content_for_keywords
+    Event::Message::KEYWORDS.each do |keyword|
+      Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template("#{keyword[:name]}_message"))
+      e = Event::Message.new(mock_message_event(with_text: keyword[:name]))
+      e.process
+    end
   end
 
   def mock_template(file_name)

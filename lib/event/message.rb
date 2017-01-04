@@ -19,6 +19,7 @@ class Event
       @message = data['event']['text']
       @user = Operationcode::Slack::User.new(data['event']['user'])
       @channel = data['event']['channel']
+
       super
     end
 
@@ -27,15 +28,15 @@ class Event
       case @message
       when ACTIONABLE_KEYWORD
         add_user
-      when keywords.include?(@message)
+      when *keywords
         send_message_for @message
       else
-        send_message_for :help_menu
+        send_message_for :help
       end
     end
 
     def keywords
-      KEYWORDS.collect(&:keys)
+      KEYWORDS.map { |k| k[:name] }
     end
 
     private
