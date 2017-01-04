@@ -14,7 +14,7 @@ class Event
     def initialize(data, token: nil, logger: nil)
       @message = data['event']['text']
       @user = Operationcode::Slack::User.new(data['event']['user'])
-
+      @channel = data['event']['channel']
       super
     end
 
@@ -32,7 +32,7 @@ class Event
     def send_message_for(type)
       puts "Sending message #{type}"
       template = File.read(template_path + "#{type}_message.txt.erb")
-      Operationcode::Slack::Im.new(user: resolve_user_name).deliver(ERB.new(template).result(binding))
+      Operationcode::Slack::Im.new(user: resolve_user_name, channel: @channel).deliver(ERB.new(template).result(binding))
     end
 
     private
@@ -40,7 +40,6 @@ class Event
     def resolve_user_name
       production_mode? ? user.id : 'U08U56D5K'
     end
-
 
     def user_wants_to_join?
       @data['event']['text'].downcase != 'no'

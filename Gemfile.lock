@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: https://github.com/OperationCode/operationcode-slack
-  revision: ba92e9c9f83b6318b6b83cda489659881ab76663
+  revision: 5baee6a7f336fe4bfca1d53ad935bb28c4aad511
   specs:
-    operationcode-slack (0.2.3)
+    operationcode-slack (0.3.0)
       activesupport
       httparty
 
