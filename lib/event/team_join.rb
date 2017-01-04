@@ -25,7 +25,7 @@ class Event
     private
 
     def resolve_user_name
-      production_mode? ? "@#{user.name}" : '@rickr'
+      production_mode? ? user.id : 'U08U56D5K'
     end
   end
 end
