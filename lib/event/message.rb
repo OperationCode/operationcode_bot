@@ -16,9 +16,7 @@ class Event
     ACTIONABLE_KEYWORD = 'yes'
 
     def self.keyword_help_text
-      KEYWORDS.each do |keyword|
-        "#{keyword[:name]} - #{keyword[:help_text]}\n"
-      end
+      KEYWORDS.collect { |keyword| "#{keyword[:name]} - #{keyword[:help_text]}" }.join("\n")
     end
 
     def initialize(data, token: nil, logger: nil)
