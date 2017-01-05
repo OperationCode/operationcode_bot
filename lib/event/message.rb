@@ -48,11 +48,7 @@ class Event
     def send_message_for(type)
       puts "Sending message #{type}"
       template = File.read(template_path + "#{type}_message.txt.erb")
-      Operationcode::Slack::Im.new(user: resolve_user_name, channel: @channel).deliver(ERB.new(template).result(binding))
-    end
-
-    def resolve_user_name
-      production_mode? ? user.id : 'U08U56D5K'
+      Operationcode::Slack::Im.new(user: user.id, channel: @channel).deliver(ERB.new(template).result(binding))
     end
 
     def user_wants_to_join?
