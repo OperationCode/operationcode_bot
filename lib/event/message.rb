@@ -46,7 +46,7 @@ class Event
     private
 
     def send_message_for(type)
-      puts "Sending message #{type}"
+      puts "Sending message #{type} to user #{user.id} on channel #{@channel}"
       template = File.read(template_path + "#{type}_message.txt.erb")
       Operationcode::Slack::Im.new(user: user.id, channel: @channel).deliver(ERB.new(template).result(binding))
     end
