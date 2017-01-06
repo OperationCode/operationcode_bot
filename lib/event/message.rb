@@ -9,7 +9,8 @@ class Event
     attr_reader :user
 
     KEYWORDS = [
-      { name: 'ruby', help_text: 'Get ruby resources' },
+      { name: 'slack', help_text: 'What is slack (where you are right now)?' },
+      { name: 'ruby', help_text: 'Show resources for the ruby programming language' },
       { name: 'help', help_text: 'This message' }
     ]
 
