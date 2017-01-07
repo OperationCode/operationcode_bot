@@ -1,5 +1,7 @@
 # Base class for events
 class Event
+  STAFF_NOTIFICATION_CHANNEL = 'G3NDEBB45'
+
   def initialize(data, token: nil, logger: nil)
     @data = data
     @token = token

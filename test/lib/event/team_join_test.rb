@@ -5,6 +5,13 @@ require "mocha/test_unit"
 class Event::TeamJoinTest < Test::Unit::TestCase
   def setup
     Event::TeamJoin.any_instance.stubs(:user_exists?).returns(nil)
+    @user = mock
+
+    @user.stubs(:name).returns('FAKE.USERNAME')
+    @mock_im = mock
+    template = File.read('views/event/team_join/welcome_message.txt.erb')
+    @mock_im.stubs(:deliver).with(ERB.new(template).result(binding))
+
   end
 
   def test_it_is_an_object
@@ -12,21 +19,22 @@ class Event::TeamJoinTest < Test::Unit::TestCase
   end
 
   def test_it_sends_a_message_to_the_user_if_an_env_var_is_set
-    @user = mock
-    @user.stubs(:name).returns('FAKE.USERNAME')
-    mock_im = mock
-    template = File.read('views/event/team_join/welcome_message.txt.erb')
-    mock_im.stubs(:deliver).with(ERB.new(template).result(binding))
-
     ENV['PRODUCTION_MODE'] = 'true'
     assert_equal 'true', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(@mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
 
     ENV['PRODUCTION_MODE'] = 'false'
     assert_equal 'false', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K').returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K').returns(@mock_im)
+
+    Event::TeamJoin.new(mock_team_join_event).process
+  end
+
+  def test_it_notifies_staff
+    Operationcode::Slack::Im.stubs(:new).returns(@mock_im)
+    Operationcode::Slack::Api::ChatPostMessage.expects(:post)
 
     Event::TeamJoin.new(mock_team_join_event).process
   end

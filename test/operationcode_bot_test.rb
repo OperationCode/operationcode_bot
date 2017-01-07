@@ -73,6 +73,8 @@ class OperationcodeBotTest < Test::Unit::TestCase
     Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
 
     Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(mock_im)
+    Operationcode::Slack::Api::ChatPostMessage.expects(:post)
+      .with(with_data: { channel: Event::STAFF_NOTIFICATION_CHANNEL, text: ':tada: FAKEUSERNAME has joined the slack team :tada:' })
 
     team_join_data = {
       token: 'FAKE_TOKEN',

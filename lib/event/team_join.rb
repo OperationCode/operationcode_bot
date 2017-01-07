@@ -19,10 +19,21 @@ class Event
       @user = Operationcode::Slack::User.new(@data['event']['user'])
       log "Production mode: #{production_mode?}"
       log "Welcoming user #{resolve_user_name}"
-      Operationcode::Slack::Im.new(user: resolve_user_name).deliver(ERB.new(@template).result(binding))
+
+      welcome_user!
+      notify_staff!
     end
 
     private
+
+    def welcome_user!
+      Operationcode::Slack::Im.new(user: resolve_user_name).deliver(ERB.new(@template).result(binding))
+    end
+
+    def notify_staff!
+      Operationcode::Slack::Api::ChatPostMessage
+        .post(with_data: { channel: Event::STAFF_NOTIFICATION_CHANNEL, text: ":tada: #{@user.name} has joined the slack team :tada:" })
+    end
 
     def resolve_user_name
       production_mode? ? user.id : 'U08U56D5K'
