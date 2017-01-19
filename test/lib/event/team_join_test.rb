@@ -9,9 +9,7 @@ class Event::TeamJoinTest < Test::Unit::TestCase
 
     @user.stubs(:name).returns('FAKE.USERNAME')
     @mock_im = mock
-    template = File.read('views/event/team_join/welcome_message.txt.erb')
-    @mock_im.stubs(:deliver).with(ERB.new(template).result(binding))
-
+    @mock_im.stubs(:deliver)
   end
 
   def test_it_is_an_object

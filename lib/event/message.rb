@@ -8,17 +8,7 @@ class Event
   class Message < Event
     attr_reader :user
 
-    KEYWORDS = [
-      { name: 'slack', help_text: 'What is slack (where you are right now)?' },
-      { name: 'ruby', help_text: 'Show resources for the ruby programming language' },
-      { name: 'help', help_text: 'This message' }
-    ]
-
     ACTIONABLE_KEYWORD = 'yes'
-
-    def self.keyword_help_text
-      KEYWORDS.collect { |keyword| "#{keyword[:name]} - #{keyword[:help_text]}" }.join("\n")
-    end
 
     def initialize(data, token: nil, logger: nil)
       @message = data['event']['text']
@@ -29,29 +19,14 @@ class Event
     end
 
     def process
-      # All of this menu stuff should probably get moved to its own class
-      case @message
-      when ACTIONABLE_KEYWORD
-        add_user
-      when *keywords
-        send_message_for @message
-      else
-        send_message_for :help
-      end
-    end
-
-    def keywords
-      KEYWORDS.map { |k| k[:name] }
+      message = OperationcodeBot::Menu.new(@message).respond!
+      Operationcode::Slack::Im.new(user: user.id, channel: @channel).deliver(message)
     end
 
     private
 
-    def send_message_for(type)
-      puts "Sending message #{type} to user #{user.id} on channel #{@channel}"
-      template = File.read(template_path + "#{type}_message.txt.erb")
-      Operationcode::Slack::Im.new(user: user.id, channel: @channel).deliver(ERB.new(template).result(binding))
-    end
-
+    # The rest of this has to do with actionable items
+    # and will be moved over soon
     def user_wants_to_join?
       @data['event']['text'].downcase != 'no'
     end
