@@ -61,15 +61,14 @@ class OperationcodeBotTest < Minitest::Test
     template = File.read('views/event/team_join/welcome_message.txt.erb')
     @user = mock
     @user.stubs(:name).returns('FAKEUSERNAME')
-    mock_im = mock
-    mock_im.expects(:deliver).with(ERB.new(template).result(binding))
     ENV['PRODUCTION_MODE'] = 'true'
 
-    Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
+    mock_im = mock
+    mock_im.expects(:deliver).with(ERB.new(template).result(binding))
 
+    Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
+    Operationcode::Slack::Api::ChatPostMessage.expects(:post).with(:with_data => {:channel => Event::STAFF_NOTIFICATION_CHANNEL, :text => ':tada: FAKEUSERNAME has joined the slack team :tada:', :attachments => [{:text => 'Have they been greeted?', :fallback => 'This is a fallback message', :callback_id => 'greeted', :color => '#3AA3E3', :attachment_type => 'default', :actions => [{:name => 'Yes', :text => 'Yes', :type => 'button', :value => 'yes'}]}]})
     Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(mock_im)
-    Operationcode::Slack::Api::ChatPostMessage.expects(:post)
-      .with(with_data: { channel: Event::STAFF_NOTIFICATION_CHANNEL, text: ':tada: FAKEUSERNAME has joined the slack team :tada:' })
 
     team_join_data = {
       token: 'FAKE_TOKEN',

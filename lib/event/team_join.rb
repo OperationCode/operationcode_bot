@@ -31,8 +31,28 @@ class Event
     end
 
     def notify_staff!
-      Operationcode::Slack::Api::ChatPostMessage
-        .post(with_data: { channel: Event::STAFF_NOTIFICATION_CHANNEL, text: ":tada: #{@user.name} has joined the slack team :tada:" })
+      Operationcode::Slack::Api::ChatPostMessage.post(
+        with_data: {
+          channel: Event::STAFF_NOTIFICATION_CHANNEL,
+          text: ":tada: #{@user.name} has joined the slack team :tada:",
+          attachments: [
+            {
+              text: "Have they been greeted?",
+              fallback: "This is a fallback message",
+              callback_id: "greeted",
+              color: "#3AA3E3",
+              attachment_type: "default",
+              actions: [
+                {
+                  name: "Yes",
+                  text: "Yes",
+                  type: "button",
+                  value: "yes"
+                }
+              ]
+            }
+          ]
+        })
     end
 
     def resolve_user_name
