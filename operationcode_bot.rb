@@ -54,6 +54,11 @@ def team_join(data, token: nil)
   empty_response
 end
 
+def button_press(data, token: nil)
+  logger.info "Button has ben pressed: #{data}"
+  empty_response
+end
+
 def message(data, token: nil)
   logger.info "New message recieved: #{data}"
 
