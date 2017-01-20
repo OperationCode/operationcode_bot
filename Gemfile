@@ -14,7 +14,8 @@ gem 'sinatra'
 
 
 group :test do
-  gem 'test-unit'
+  gem 'minitest'
+  gem 'minitest-reporters'
   gem 'rack-test'
   gem 'mocha'
   gem "simplecov"

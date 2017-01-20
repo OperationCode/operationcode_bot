@@ -1,8 +1,7 @@
+require_relative '../test_helper'
 require 'squad'
-require 'test/unit'
-require "mocha/test_unit"
 
-class EventTest < Test::Unit::TestCase
+class EventTest < Minitest::Test
   def test_it_checks_for_dev_mode
     ENV['PRODUCTION_MODE'] = 'true'
     assert Event.new('fake data').production_mode?

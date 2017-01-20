@@ -1,10 +1,9 @@
-#module OperationcodeBot; end
-#class OperationcodeBot::Menu; end
-#class OperationcodeBot::Menu::Keyword; end
-
 Dir["./keyword/*.rb"].each {|file| require file }
 
-class OperationcodeBot::Menu::Keyword
+module Bot; end
+class Bot::Menu; end
+
+class Bot::Menu::Keyword
   def self.template_path
     Pathname.new(__dir__) + '..' + '..' + 'views' + self.name.to_s.underscore + '..'
   end

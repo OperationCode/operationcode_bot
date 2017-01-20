@@ -1,11 +1,6 @@
-ENV['RACK_ENV'] = 'test'
+require_relative './test_helper'
 
-require 'operationcode_bot'
-require 'test/unit'
-require 'rack/test'
-require "mocha/test_unit"
-
-class OperationcodeBotTest < Test::Unit::TestCase
+class OperationcodeBotTest < Minitest::Test
   include Rack::Test::Methods
 
   SLACK_OAUTH_ACCESS_PATH = 'https://slack.com/api/oauth.access'

@@ -19,7 +19,7 @@ class Event
     end
 
     def process
-      message = OperationcodeBot::Menu.new(@message).respond!
+      message = Bot::Menu.new(@message).message
       Operationcode::Slack::Im.new(user: user.id, channel: @channel).deliver(message)
     end
 

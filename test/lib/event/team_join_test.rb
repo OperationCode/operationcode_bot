@@ -1,8 +1,7 @@
+require_relative '../../test_helper'
 require 'event/team_join'
-require 'test/unit'
-require "mocha/test_unit"
 
-class Event::TeamJoinTest < Test::Unit::TestCase
+class Event::TeamJoinTest < Minitest::Test
   def setup
     Event::TeamJoin.any_instance.stubs(:user_exists?).returns(nil)
     @user = mock
@@ -27,6 +26,7 @@ class Event::TeamJoinTest < Test::Unit::TestCase
     assert_equal 'false', ENV['PRODUCTION_MODE']
     Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K').returns(@mock_im)
 
+    puts mock_team_join_event
     Event::TeamJoin.new(mock_team_join_event).process
   end
 

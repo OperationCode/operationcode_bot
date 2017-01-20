@@ -3,4 +3,4 @@ Hi <%= @user.try(:name) %>,
 I'm operationcodebot, your very own guide to get you started on your path to coding.
 
 Here's what I know how to help with. Simply type one of these words and I'll give you more details:
-<%= Event::Message.keyword_help_text %>
+<%= Bot::Menu::Keyword.list_help_texts %>
