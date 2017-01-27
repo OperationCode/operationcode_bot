@@ -27,12 +27,12 @@ post '/event' do
 end
 
 post '/slack/button_press' do
-  event_data = read_post_body
+  button_data = JSON.parse params['payload']
 
   logger.info 'Button Press!'
-  logger.info "Received data #{event_data}"
+  logger.info "Received data #{button_data}"
 
-  empty_response
+  halt 200
 end
 
 get '/oauth/redirect' do
@@ -81,7 +81,7 @@ def message(data, token: nil)
 end
 
 def bot_message?(data)
-  data['event']['subtype'] == 'bot_message'
+  data['event']['subtype'] == 'bot_message' || data['event']['message']['subtype'] == 'bot_message'
 end
 
 def empty_response
