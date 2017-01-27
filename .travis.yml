@@ -10,6 +10,7 @@ script:
   - docker run operationcode/operationcode_bot /bin/sh -c 'cd /app && bundle exec rake'
 
 after_success:
+  - bundle exec codeclimate-test-reporter
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker build . -t operationcode/operationcode_bot:latest &&
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
