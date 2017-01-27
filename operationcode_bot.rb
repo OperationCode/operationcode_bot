@@ -26,6 +26,15 @@ post '/event' do
   dispatch_event(type: event_type, with_data: event_data, token: event_data['token'])
 end
 
+post '/slack/button_press' do
+  event_data = read_post_body
+
+  logger.info 'Button Press!'
+  logger.info "Received data #{event_data}"
+
+  empty_response
+end
+
 get '/oauth/redirect' do
   logger.info "OAUTH with code #{params['code']}"
   response = Operationcode::Slack::Api::OauthAccess.post(with_data: { code: params['code'] })

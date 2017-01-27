@@ -35,7 +35,7 @@ class Event
         channel: Event::STAFF_NOTIFICATION_CHANNEL,
         text: ":tada: #{@user.name} has joined the slack team :tada:"
       )
-      im.make_interactive_with(
+      im.make_interactive_with!(
         Operationcode::Slack::Im::Interactive.new(
           text: 'Have they been greeted?',
           id: 'greeted',
@@ -44,6 +44,7 @@ class Event
           ]
         )
       )
+      im.deliver
     end
 
     def resolve_user_name

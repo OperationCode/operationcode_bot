@@ -9,6 +9,7 @@ class Event::TeamJoinTest < Minitest::Test
     @user.stubs(:name).returns('FAKE.USERNAME')
     @mock_im = mock
     @mock_im.stubs(:deliver)
+    @mock_im.stubs(:make_interactive_with!)
   end
 
   def test_it_is_an_object
@@ -19,20 +20,21 @@ class Event::TeamJoinTest < Minitest::Test
     ENV['PRODUCTION_MODE'] = 'true'
     assert_equal 'true', ENV['PRODUCTION_MODE']
     Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(@mock_im)
+    Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKE.USERNAME has joined the slack team :tada:').returns(@mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
 
     ENV['PRODUCTION_MODE'] = 'false'
     assert_equal 'false', ENV['PRODUCTION_MODE']
     Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K').returns(@mock_im)
+    Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKE.USERNAME has joined the slack team :tada:').returns(@mock_im)
 
-    puts mock_team_join_event
     Event::TeamJoin.new(mock_team_join_event).process
   end
 
   def test_it_notifies_staff
     Operationcode::Slack::Im.stubs(:new).returns(@mock_im)
-    Operationcode::Slack::Api::ChatPostMessage.expects(:post)
+    @mock_im.expects(:deliver)
 
     Event::TeamJoin.new(mock_team_join_event).process
   end
