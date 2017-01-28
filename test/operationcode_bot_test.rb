@@ -129,7 +129,7 @@ class OperationcodeBotTest < Minitest::Test
       }
     }
 
-    button_press_response = "{\"text\":\":tada: TEST_USER has joined the slack team :tada:\",\"username\":\"operationcodebot\",\"bot_id\":\"TEST_BOT_ID\",\"attachments\":[{\"callback_id\":\"greeted\",\"fallback\":\"Have they been greeted?\",\"text\":\"@TEST_USER_NAME has greeted the new user\",\"id\":1,\"color\":\"3AA3E3\",\"actions\":[]}],\"type\":\"message\",\"subtype\":\"bot_message\",\"ts\":\"1485611482.000040\"}"
+    button_press_response = "{\"text\":\":tada: TEST_USER has joined the slack team :tada:\",\"username\":\"operationcodebot\",\"bot_id\":\"TEST_BOT_ID\",\"attachments\":[{\"callback_id\":\"greeted\",\"fallback\":\"Have they been greeted?\",\"text\":\"\\u003c@TEST_USER_ID\\u003e has greeted the new user\",\"id\":1,\"color\":\"3AA3E3\",\"actions\":[]}],\"type\":\"message\",\"subtype\":\"bot_message\",\"ts\":\"1485611482.000040\"}"
 
     post '/slack/button_press', { 'payload' => button_press_data.to_json }
     assert_equal button_press_response, last_response.body
