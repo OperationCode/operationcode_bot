@@ -64,7 +64,8 @@ class OperationcodeBotTest < Minitest::Test
     ENV['PRODUCTION_MODE'] = 'true'
 
     mock_im = mock
-    mock_im.expects(:deliver).with(ERB.new(template).result(binding))
+    mock_im.expects(:deliver)
+    mock_im.expects(:make_interactive_with!)
 
     mock_notification_im = mock
     mock_notification_im.expects(:deliver)
@@ -72,7 +73,7 @@ class OperationcodeBotTest < Minitest::Test
 
 
     Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
-    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: "Hi FAKEUSERNAME,\n\nI'm operationcodebot, your very own guide to get you started on your path to coding.\n").returns(mock_im)
     Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKEUSERNAME has joined the slack team :tada:').returns(mock_notification_im)
 
     team_join_data = {

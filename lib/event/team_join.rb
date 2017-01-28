@@ -27,7 +27,9 @@ class Event
     private
 
     def welcome_user!
-      Operationcode::Slack::Im.new(user: resolve_user_name).deliver(ERB.new(@template).result(binding))
+      im = Operationcode::Slack::Im.new(user: resolve_user_name, text: ERB.new(@template).result(binding))
+      im.make_interactive_with!(HelpMenu.generate_interactive_message)
+      im.deliver
     end
 
     def notify_staff!

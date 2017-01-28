@@ -19,14 +19,14 @@ class Event::TeamJoinTest < Minitest::Test
   def test_it_sends_a_message_to_the_user_if_an_env_var_is_set
     ENV['PRODUCTION_MODE'] = 'true'
     assert_equal 'true', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID').returns(@mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: "Hi FAKE.USERNAME,\n\nI'm operationcodebot, your very own guide to get you started on your path to coding.\n").returns(@mock_im)
     Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKE.USERNAME has joined the slack team :tada:').returns(@mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
 
     ENV['PRODUCTION_MODE'] = 'false'
     assert_equal 'false', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K').returns(@mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K', text: "Hi FAKE.USERNAME,\n\nI'm operationcodebot, your very own guide to get you started on your path to coding.\n").returns(@mock_im)
     Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKE.USERNAME has joined the slack team :tada:').returns(@mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process

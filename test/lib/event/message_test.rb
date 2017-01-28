@@ -13,30 +13,12 @@ class Event::MessageTest < Minitest::Test
   end
 
   def test_presents_the_help_menu_if_given_an_unknown_message
-    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_message))
+    Operationcode::Slack::Im.any_instance.expects(:deliver)
     Event::Message.new(mock_message_event).process
 
-    Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template(:help_message))
+    Operationcode::Slack::Im.any_instance.expects(:deliver)
     Event::Message.new(mock_message_event.merge({ 'event' => { 'text' => 'r', 'user' => 'FAKEUSERID' } })).process
   end
-
-  def test_displays_content_for_keywords
-    Bot::Menu::Keyword.all.each do |keyword|
-      # 'all' is a special keyword that displays the keywords and their help so it doesn't have any ERB template
-      next if keyword == 'all'
-
-      Operationcode::Slack::Im.any_instance.expects(:deliver).with(mock_template("#{keyword}_message"))
-
-      e = Event::Message.new(mock_message_event(with_text: keyword))
-      e.process
-    end
-  end
-
-  def mock_template(file_name)
-    template = File.read("views/bot/menu/keyword/#{file_name}.txt.erb")
-    ERB.new(template).result(binding)
-  end
-
 
   def test_it_invites_a_user_to_a_channel_if_an_env_var_is_set
     skip
