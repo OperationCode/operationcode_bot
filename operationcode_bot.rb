@@ -79,7 +79,7 @@ def message(data, token: nil)
 end
 
 def bot_message?(data)
-  data['event']['subtype'] == 'bot_message' || data['event']['message']['subtype'] == 'bot_message'
+  data['event']['subtype'] == 'bot_message' || (data['event']['message'] && data['event']['message']['subtype'] == 'bot_message')
 end
 
 def empty_response
