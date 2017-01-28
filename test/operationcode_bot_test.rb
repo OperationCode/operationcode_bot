@@ -97,4 +97,21 @@ class OperationcodeBotTest < Minitest::Test
     post '/event', team_join_data.to_json
     assert last_response.ok?
   end
+
+  def test_handles_button_presses
+    button_press_data = {
+      'actions' => [{ 'name' => 'yes', 'value' => 'yes' }],
+      'callback_id' => 'greeted',
+      'channel' => { 'id'=>'CHANNEL_ID', 'name'=>'privategroup' },
+      'user' => { 'id'=>'TEST_USER_ID', 'name'=>'TEST_USER_NAME' },
+      'action_ts' => '1000000000.000000',
+      'message_ts' => '1999999999.999999',
+      'attachment_id' => '1',
+      'token' => 'FAKE_TOKEN',
+      'response_url' => 'https://hooks.slack.com/actions/T03GSNF5H/133143284945/4VEOGJbL8tKPLRvgAa9CFG9i'
+    }
+
+    post '/slack/button_press', { 'payload' => button_press_data.to_json }
+    assert_equal '@TEST_USER_NAME has greeted the new user', last_response.body
+  end
 end

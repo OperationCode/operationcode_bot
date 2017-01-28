@@ -28,11 +28,14 @@ end
 
 post '/slack/button_press' do
   button_data = JSON.parse params['payload']
+  logger.info "Received Button Press with data #{button_data}"
 
-  logger.info 'Button Press!'
-  logger.info "Received data #{button_data}"
+  callback = button_data['callback_id']
+  button_press_klass = "ButtonPress::#{callback.classify}".constantize
 
-  halt 200
+  button_press = button_press_klass.new(button_data)
+  button_press.process
+  button_press.response ? button_press.response : halt(200)
 end
 
 get '/oauth/redirect' do
@@ -60,11 +63,6 @@ def team_join(data, token: nil)
 
   Event::TeamJoin.new(data, token: token, logger: logger).process
 
-  empty_response
-end
-
-def button_press(data, token: nil)
-  logger.info "Button has ben pressed: #{data}"
   empty_response
 end
 
