@@ -108,10 +108,30 @@ class OperationcodeBotTest < Minitest::Test
       'message_ts' => '1999999999.999999',
       'attachment_id' => '1',
       'token' => 'FAKE_TOKEN',
-      'response_url' => 'https://hooks.slack.com/actions/T03GSNF5H/133143284945/4VEOGJbL8tKPLRvgAa9CFG9i'
+      'response_url' => 'https://hooks.slack.com/actions/T03GSNF5H/133143284945/4VEOGJbL8tKPLRvgAa9CFG9i',
+      'original_message' => {
+        'text' => ':tada: TEST_USER has joined the slack team :tada:',
+        'username' => 'operationcodebot',
+        'bot_id' => 'TEST_BOT_ID',
+        'attachments' => [
+          {
+            'callback_id' => 'greeted',
+            'fallback' => 'Have they been greeted?',
+            'text' => 'Have they been greeted?',
+            'id' => 1,
+            'color' => '3AA3E3',
+            'actions' => [{ 'id' => '1', 'name' => 'yes', 'text' => 'Yes', 'type' => 'button', 'value' => 'yes', 'style' => 'default' }]
+          }
+        ],
+        'type' => 'message',
+        'subtype' => 'bot_message',
+        'ts' => '1485611482.000040'
+      }
     }
 
+    button_press_response = "{\"text\":\":tada: TEST_USER has joined the slack team :tada:\",\"username\":\"operationcodebot\",\"bot_id\":\"TEST_BOT_ID\",\"attachments\":[{\"callback_id\":\"greeted\",\"fallback\":\"Have they been greeted?\",\"text\":\"@TEST_USER_NAME has greeted the new user\",\"id\":1,\"color\":\"3AA3E3\",\"actions\":[]}],\"type\":\"message\",\"subtype\":\"bot_message\",\"ts\":\"1485611482.000040\"}"
+
     post '/slack/button_press', { 'payload' => button_press_data.to_json }
-    assert_equal '@TEST_USER_NAME has greeted the new user', last_response.body
+    assert_equal button_press_response, last_response.body
   end
 end
