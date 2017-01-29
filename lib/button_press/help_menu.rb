@@ -1,8 +1,7 @@
 class ButtonPress::HelpMenu < ButtonPress
   def process
     help_klass = "HelpMenu::#{@action['name'].classify}".constantize
-    puts "Messaging user #{@user['id']} #{help_klass.text}"
-    Operationcode::Slack::Im.new(user: @user['id'], text: help_klass.text)
+    Operationcode::Slack::Im.new(user: @user['id'], text: help_klass.text).deliver
     nil
   end
 
