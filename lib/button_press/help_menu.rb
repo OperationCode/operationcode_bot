@@ -1,6 +1,6 @@
 class ButtonPress::HelpMenu < ButtonPress
   def process
-    help_klass = "HelpMenu::#{@action['name']}".classify.constantize
+    help_klass = "HelpMenu::#{@action['name'].classify}".constantize
     Operationcode::Slack::Im.new(user: @user['id'], text: help_klass.text)
     nil
   end
