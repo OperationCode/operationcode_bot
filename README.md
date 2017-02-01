@@ -10,10 +10,11 @@ When a subscribed event occurs:
   * The bot processes the event and calls a method with the same name as the event passed in
   * The event named method does whatever tasks are needed
 
-In the current case when a new user signs up they are sent a welcome message with keywords.
-The user can respond to this message with one of the keywords to get more info on that subject.
-In the one specific case of joining our mentorship program if the user replies in the affirmative
-they are invited to a mentorship squad and added to our airtables base.
+It also handles interactive message button presses. When a button click clicked:
+  * Slack send us a POST with the buttom params
+  * The bot calls the `process` method on an instance of the callback_id of the button
+  * If `@response` is set we reply with the response and slack updates the message.
+    This can be just text or a an entire message payload.
 
 ## Installation
 
@@ -27,17 +28,18 @@ they are invited to a mentorship squad and added to our airtables base.
 
 ## Usage
 
-### Adding New Keywords
+### Adding New Button Responses
 
-When a user messages the bot the code in `lib/event/message.rb` is executed.
-To add a new keyword we'll start there.
+Button Presses are called by as a class by way of the `callback_id`
+passed in from the slack API. To handle a new action define a new class
+in `lib/button_press`. The `#process` method must be defined. See the existing
+classes for more help.
 
-Add your new keyword to the `KEYWORDS` constant. The `name` key is what the user will type to access this keyword,
-and the `help_text` key will be displayed when someone types 'help' and in the welcome message.
+### Adding new help menu items
 
-Next navigate to `views/event/message`. Create a new file called `$NAME_message.txt.erb`, where $NAME is the name of your
-keyword above. Now just create the text you'd like to be sent to the user in this file and create a PR with your changes.
-The text in this file can use the features of the Slack [message formatting](https://api.slack.com/docs/message-formatting) guide.
+To add a new item to the help menu simply create a new class in `lib/help_menu`.
+See existing help menu classes for more help.
+Then you'll just need to add the messages template with $CLASS_NAME_message.txt.erb in `views/help_menu/`.
 
 ### Adding A New Event
 
