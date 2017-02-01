@@ -17,16 +17,17 @@ class Event::TeamJoinTest < Minitest::Test
   end
 
   def test_it_sends_a_message_to_the_user_if_an_env_var_is_set
+    welcome_string = "Hi FAKE.USERNAME,\n\nWelcome to Operation Code!. You're currently in Slack, a chat application that serves\nas the hub of Operation Code. If you're currently visiting us via your browser Slack\nprovides a stand alone program to make staying in touch even more convenient. You can\ndownload it here: https://slack.com/downloads\n\nBelow you'll see a list of topics. You can click on each topic to get more info. If you\nwant to see the topics again just reply to me with any message.\n\nWant to make your first change to a program right now? Click on the 'OpCode Challenge'\nbutton to get instructions on how to update this bot with your name!\n"
     ENV['PRODUCTION_MODE'] = 'true'
     assert_equal 'true', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: "Hi FAKE.USERNAME,\n\nI'm operationcodebot, your very own guide to get you started on your path to coding.\n").returns(@mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: welcome_string).returns(@mock_im)
     Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKE.USERNAME has joined the slack team :tada:').returns(@mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
 
     ENV['PRODUCTION_MODE'] = 'false'
     assert_equal 'false', ENV['PRODUCTION_MODE']
-    Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K', text: "Hi FAKE.USERNAME,\n\nI'm operationcodebot, your very own guide to get you started on your path to coding.\n").returns(@mock_im)
+    Operationcode::Slack::Im.expects(:new).with(user: 'U08U56D5K', text: welcome_string).returns(@mock_im)
     Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKE.USERNAME has joined the slack team :tada:').returns(@mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process

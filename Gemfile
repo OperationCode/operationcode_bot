@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem 'activesupport'
 gem 'airtable'
+gem "codeclimate-test-reporter", "~> 1.0.0"
 gem 'httparty'
 gem 'operationcode-airtable', git: 'https://github.com/OperationCode/operationcode-airtable'
 gem 'operationcode-slack', git: 'https://github.com/OperationCode/operationcode-slack'
@@ -13,7 +14,6 @@ gem 'rb-readline'
 gem 'sinatra'
 
 group :test do
-  gem "codeclimate-test-reporter", "~> 1.0.0"
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'rack-test'
