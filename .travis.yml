@@ -16,7 +16,7 @@ addons:
     repo_token: c4fda4d7944229b1f03f2a7e996730e7ed025196631e3ef6d07ae19ad5e2328e
 
 after_success:
-  - gem install codeclimate-test-reporter && bundle exec codeclimate-test-reporter
+  - bundle exec codeclimate-test-reporter
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker build . -t operationcode/operationcode_bot:latest &&
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&

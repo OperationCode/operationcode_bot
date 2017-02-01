@@ -3,7 +3,7 @@ class HelpMenu::OpcodeChallenge < HelpMenu
     { name: :opcode_challenge, text: ':opcode: OpCode Challenge', value: :opcode_challenge }
   end
 
-  def text
+  def self.text
     names_file = File.join(File.dirname(__FILE__), '../../opcode_challenge/names.txt')
     @names = File.read(names_file)
 
