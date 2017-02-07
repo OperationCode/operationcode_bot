@@ -19,7 +19,11 @@ class Event
     end
 
     def process
-      im = Operationcode::Slack::Im.new(user: user.id, channel: @channel, text: "I'm sorry. I don't know how to talk to humans yet. Here's what I do know.")
+      im = Operationcode::Slack::Im.new(
+        user: user.id,
+        channel: @channel,
+        text: "I'm sorry. I don't know how to talk to humans yet. Here's what I do know."
+      )
       im.make_interactive_with!(HelpMenu.generate_interactive_message)
       im.deliver
     end
