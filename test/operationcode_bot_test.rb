@@ -3,8 +3,8 @@ require_relative './test_helper'
 class OperationcodeBotTest < Minitest::Test
   include Rack::Test::Methods
 
-  SLACK_OAUTH_ACCESS_PATH = 'https://slack.com/api/oauth.access'
-  SLACK_USERS_INFO_PATH = 'https://slack.com/api/users.info'
+  SLACK_OAUTH_ACCESS_PATH = 'https://slack.com/api/oauth.access'.freeze
+  SLACK_USERS_INFO_PATH = 'https://slack.com/api/users.info'.freeze
 
   def app
     Sinatra::Application

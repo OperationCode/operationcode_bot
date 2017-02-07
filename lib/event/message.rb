@@ -8,7 +8,7 @@ class Event
   class Message < Event
     attr_reader :user
 
-    ACTIONABLE_KEYWORD = 'yes'
+    ACTIONABLE_KEYWORD = 'yes'.freeze
 
     def initialize(data, token: nil, logger: nil)
       @message = data['event']['text']
