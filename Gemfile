@@ -9,6 +9,7 @@ gem 'operationcode-airtable', git: 'https://github.com/OperationCode/operationco
 gem 'operationcode-slack', git: 'https://github.com/OperationCode/operationcode-slack'
 gem 'pry'
 gem 'rake'
+gem 'rubocop'
 gem 'rb-readline'
 gem 'sinatra'
 
