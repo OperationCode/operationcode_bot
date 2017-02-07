@@ -117,8 +117,8 @@ class OperationcodeBotTest < Minitest::Test
     button_press_data = {
       'actions' => [{ 'name' => 'yes', 'value' => 'yes' }],
       'callback_id' => 'greeted',
-      'channel' => { 'id'=>'CHANNEL_ID', 'name'=>'privategroup' },
-      'user' => { 'id'=>'TEST_USER_ID', 'name'=>'TEST_USER_NAME' },
+      'channel' => { 'id' => 'CHANNEL_ID', 'name' => 'privategroup' },
+      'user' => { 'id' => 'TEST_USER_ID', 'name' => 'TEST_USER_NAME' },
       'action_ts' => '1000000000.000000',
       'message_ts' => '1999999999.999999',
       'attachment_id' => '1',

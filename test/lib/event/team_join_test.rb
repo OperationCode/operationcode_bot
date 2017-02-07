@@ -56,8 +56,8 @@ class Event::TeamJoinTest < Minitest::Test
       'type' => 'team_join',
       'event' => {
         'user' => {
-          'id' =>'FAKEUSERID',
-          'name' =>'FAKE.USERNAME',
+          'id' => 'FAKEUSERID',
+          'name' => 'FAKE.USERNAME',
           'real_name' => 'FAKE NAME',
           'profile' => {
             'first_name' => 'FAKEFIRSTNAME',
