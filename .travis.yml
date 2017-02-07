@@ -1,11 +1,12 @@
 language: ruby
 
 sudo: required
+dist: trusty
 
 install: true
 
 services:
-    - docker
+  - docker
 
 script:
   - docker build . -t operationcode/operationcode_bot:latest
