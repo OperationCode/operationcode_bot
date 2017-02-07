@@ -19,7 +19,8 @@ class OperationcodeBotTest < Minitest::Test
   def test_it_responds_to_ping
     get '/ping'
     assert last_response.ok?
-    assert_equal ({ success: :ok, data: :pong }.to_json), last_response.body
+    expected = { success: :ok, data: :pong }.to_json
+    assert_equal expected, last_response.body
   end
 
   def test_it_can_oauth
