@@ -101,7 +101,7 @@ class OperationcodeBotTest < Minitest::Test
         user: {
           id: 'FAKEUSERID',
           name: 'FAKEUSERNAME'
-        },
+        }
       },
       type: 'event_callback',
       authed_users: [
