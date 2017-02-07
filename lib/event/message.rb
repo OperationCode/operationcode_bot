@@ -66,7 +66,7 @@ class Event
 
     def save_user_to_airtables!
       log "Adding slack username #{user.name} to squad #{@squad} to airtables"
-      Airtables::MentorshipSquads.create({slack_username: user.name, squad: @squad})
+      Airtables::MentorshipSquads.create({ slack_username: user.name, squad: @squad })
     end
 
     def least_populated_squad
