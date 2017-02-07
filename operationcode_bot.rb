@@ -96,7 +96,7 @@ end
 def dispatch_event(type: event_type, with_data: data, token: nil)
   # This wierd Object include check has to do with Ruby's odd main/top level behaviours
   # We are basically just checking that the method was defined in this file
-  if(type && Object.private_instance_methods.include?(type.to_sym))
+  if type && Object.private_instance_methods.include?(type.to_sym)
     send(type.to_sym, with_data, token: token)
   else
     logger.info "Did not find a handler for event type '#{type}'"
