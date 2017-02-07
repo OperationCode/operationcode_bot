@@ -51,17 +51,15 @@ class Event
 
     def invite_user_to(squad)
       channel_id = Squad.channel_id_for squad
-
       log "Inviting #{user.id} (#{user.name}) to channel #{channel_id} (#{squad})"
-      if ENV['INVITE_USER'] == 'true'
-        Operationcode::Slack::Api::ChannelsInvite.post(
-          with_data: {
-            token: @token,
-            channel: channel_id,
-            user: user.id
-          }
-        )
-      end
+      return if ENV['INVITE_USER'] != 'true'
+      Operationcode::Slack::Api::ChannelsInvite.post(
+        with_data: {
+          token: @token,
+          channel: channel_id,
+          user: user.id
+        }
+      )
     end
 
     def save_user_to_airtables!
