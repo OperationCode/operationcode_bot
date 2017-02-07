@@ -98,8 +98,8 @@ class OperationcodeBotTest < Minitest::Test
         type: 'team_join',
         event_ts: '1234567890.123456',
         user: {
-          id: "FAKEUSERID",
-          name: "FAKEUSERNAME"
+          id: 'FAKEUSERID',
+          name: 'FAKEUSERNAME'
         },
       },
       type: 'event_callback',

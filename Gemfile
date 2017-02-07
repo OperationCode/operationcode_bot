@@ -14,10 +14,10 @@ gem 'rb-readline'
 gem 'sinatra'
 
 group :test do
-  gem "codeclimate-test-reporter", "~> 1.0.0"
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'rack-test'
   gem 'mocha'
-  gem "simplecov"
+  gem 'simplecov'
 end
