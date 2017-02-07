@@ -28,7 +28,7 @@ class Event::MessageTest < Minitest::Test
 
     HTTParty.expects(:post)
       .with('https://slack.com/api/channels.invite', body: { token: nil, user: 'FAKEUSERID', channel: '1STSQUADID' })
-      .returns({ok: true}.to_json)
+      .returns({ ok: true }.to_json)
 
     event = Event::Message.new(mock_message_event(with_text: 'yes'))
     event.process
@@ -63,8 +63,8 @@ class Event::MessageTest < Minitest::Test
 
   def mock_message_event(with_text: 'MESSAGE TEXT')
     {
-      'token'=>'FAKETOKEN',
-      'team_id'=>'TEAMID',
+      'token' => 'FAKETOKEN',
+      'team_id' => 'TEAMID',
       'event' => {
         'type' => 'message',
         'user' => 'FAKEUSERID',

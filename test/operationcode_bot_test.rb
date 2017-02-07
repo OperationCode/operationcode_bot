@@ -3,8 +3,8 @@ require_relative './test_helper'
 class OperationcodeBotTest < Minitest::Test
   include Rack::Test::Methods
 
-  SLACK_OAUTH_ACCESS_PATH = 'https://slack.com/api/oauth.access'
-  SLACK_USERS_INFO_PATH = 'https://slack.com/api/users.info'
+  SLACK_OAUTH_ACCESS_PATH = 'https://slack.com/api/oauth.access'.freeze
+  SLACK_USERS_INFO_PATH = 'https://slack.com/api/users.info'.freeze
 
   def app
     Sinatra::Application
@@ -19,7 +19,8 @@ class OperationcodeBotTest < Minitest::Test
   def test_it_responds_to_ping
     get '/ping'
     assert last_response.ok?
-    assert_equal ({ success: :ok, data: :pong }.to_json), last_response.body
+    expected = { success: :ok, data: :pong }.to_json
+    assert_equal expected, last_response.body
   end
 
   def test_it_can_oauth
@@ -71,8 +72,24 @@ class OperationcodeBotTest < Minitest::Test
     mock_notification_im.expects(:make_interactive_with!)
 
     Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
-    Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: "Hi FAKEUSERNAME,\n\nWelcome to Operation Code! I'm a bot designed to help answer questions and get you on your\nway in our community.\n\nOur goal here at Operation Code is to get veterans and their families started on the path to\na career in programming. We do that through providing you with scholarships, mentoring, career\ndevelopment opportunities, conference tickets, and more!\n\nYou're currently in Slack, a chat application that serves as the hub of Operation Code.\nIf you're currently visiting us via your browser Slack provides a stand alone program\nto make staying in touch even more convenient. You can download it here:\nhttps://slack.com/downloads\n\nBelow you'll see a list of topics. You can click on each topic to get more info. If you\nwant to see the topics again just reply to me with any message.\n\nWant to make your first change to a program right now? Click on the 'OpCode Challenge'\nbutton to get instructions on how to make a change to this very bot!\n").returns(mock_im)
-    Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: ':tada: FAKEUSERNAME has joined the slack team :tada:').returns(mock_notification_im)
+    Operationcode::Slack::Im.expects(:new).with(
+      user: 'FAKEUSERID',
+      text: "Hi FAKEUSERNAME,\n\nWelcome to Operation Code! I'm a bot designed to help answer questions and get you on your\n" \
+        "way in our community.\n\nOur goal here at Operation Code is to get veterans and their families started on the path to\n" \
+        "a career in programming. We do that through providing you with scholarships, mentoring, career\n" \
+        "development opportunities, conference tickets, and more!\n\n" \
+        "You're currently in Slack, a chat application that serves as the hub of Operation Code.\n" \
+        "If you're currently visiting us via your browser Slack provides a stand alone program\n" \
+        "to make staying in touch even more convenient. You can download it here:\nhttps://slack.com/downloads\n\n" \
+        "Below you'll see a list of topics. You can click on each topic to get more info. If you\n" \
+        "want to see the topics again just reply to me with any message.\n\n" \
+        "Want to make your first change to a program right now? Click on the 'OpCode Challenge'\n" \
+        "button to get instructions on how to make a change to this very bot!\n"
+    ).returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(
+      channel: 'G3NDEBB45',
+      text: ':tada: FAKEUSERNAME has joined the slack team :tada:'
+    ).returns(mock_notification_im)
 
     team_join_data = {
       token: 'FAKE_TOKEN',
@@ -82,9 +99,9 @@ class OperationcodeBotTest < Minitest::Test
         type: 'team_join',
         event_ts: '1234567890.123456',
         user: {
-          id: "FAKEUSERID",
-          name: "FAKEUSERNAME"
-        },
+          id: 'FAKEUSERID',
+          name: 'FAKEUSERNAME'
+        }
       },
       type: 'event_callback',
       authed_users: [
@@ -101,8 +118,8 @@ class OperationcodeBotTest < Minitest::Test
     button_press_data = {
       'actions' => [{ 'name' => 'yes', 'value' => 'yes' }],
       'callback_id' => 'greeted',
-      'channel' => { 'id'=>'CHANNEL_ID', 'name'=>'privategroup' },
-      'user' => { 'id'=>'TEST_USER_ID', 'name'=>'TEST_USER_NAME' },
+      'channel' => { 'id' => 'CHANNEL_ID', 'name' => 'privategroup' },
+      'user' => { 'id' => 'TEST_USER_ID', 'name' => 'TEST_USER_NAME' },
       'action_ts' => '1000000000.000000',
       'message_ts' => '1999999999.999999',
       'attachment_id' => '1',
@@ -128,7 +145,10 @@ class OperationcodeBotTest < Minitest::Test
       }
     }
 
-    button_press_response = "{\"text\":\":tada: TEST_USER has joined the slack team :tada:\",\"username\":\"operationcodebot\",\"bot_id\":\"TEST_BOT_ID\",\"attachments\":[{\"callback_id\":\"greeted\",\"fallback\":\"Have they been greeted?\",\"text\":\"\\u003c@TEST_USER_ID\\u003e has greeted the new user\",\"id\":1,\"color\":\"3AA3E3\",\"actions\":[]}],\"type\":\"message\",\"subtype\":\"bot_message\",\"ts\":\"1485611482.000040\"}"
+    button_press_response = '{"text":":tada: TEST_USER has joined the slack team :tada:","username":"operationcodebot",' \
+      '"bot_id":"TEST_BOT_ID","attachments":[{"callback_id":"greeted","fallback":"Have they been greeted?",' \
+      '"text":"\\u003c@TEST_USER_ID\\u003e has greeted the new user","id":1,"color":"3AA3E3","actions":[]}],"type":"message",' \
+      '"subtype":"bot_message","ts":"1485611482.000040"}'
 
     post '/slack/button_press', { 'payload' => button_press_data.to_json }
     assert_equal button_press_response, last_response.body

@@ -10,13 +10,14 @@ gem 'operationcode-slack', git: 'https://github.com/OperationCode/operationcode-
 gem 'pry'
 gem 'rake'
 gem 'rb-readline'
+gem 'rubocop'
 gem 'sinatra'
 
 group :test do
-  gem "codeclimate-test-reporter", "~> 1.0.0"
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'minitest'
   gem 'minitest-reporters'
-  gem 'rack-test'
   gem 'mocha'
-  gem "simplecov"
+  gem 'rack-test'
+  gem 'simplecov'
 end

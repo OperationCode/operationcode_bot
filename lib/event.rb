@@ -1,6 +1,6 @@
 # Base class for events
 class Event
-  STAFF_NOTIFICATION_CHANNEL = 'G3NDEBB45'
+  STAFF_NOTIFICATION_CHANNEL = 'G3NDEBB45'.freeze
 
   def initialize(data, token: nil, logger: nil)
     @data = data

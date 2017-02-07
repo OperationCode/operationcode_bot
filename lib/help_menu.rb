@@ -14,13 +14,15 @@ class HelpMenu
     ERB.new(template).result(binding)
   end
 
-  private
+  class << self
+    private
 
-  def self.template_path
-    Pathname.new(__dir__) + '..' + 'views' + self.name.to_s.underscore + '..'
-  end
+    def template_path
+      Pathname.new(__dir__) + '..' + 'views' + name.to_s.underscore + '..'
+    end
 
-  def self.class_to_filename
-    "#{self.name.to_s.demodulize.underscore.downcase}_message.txt.erb"
+    def class_to_filename
+      "#{name.to_s.demodulize.underscore.downcase}_message.txt.erb"
+    end
   end
 end

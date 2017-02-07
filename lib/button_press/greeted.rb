@@ -7,4 +7,3 @@ class ButtonPress::Greeted < ButtonPress
     @response = updated_message.to_json
   end
 end
-

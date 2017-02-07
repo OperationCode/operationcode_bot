@@ -8,7 +8,7 @@ class Event
   class Message < Event
     attr_reader :user
 
-    ACTIONABLE_KEYWORD = 'yes'
+    ACTIONABLE_KEYWORD = 'yes'.freeze
 
     def initialize(data, token: nil, logger: nil)
       @message = data['event']['text']
@@ -19,7 +19,11 @@ class Event
     end
 
     def process
-      im = Operationcode::Slack::Im.new(user: user.id, channel: @channel, text: "I'm sorry. I don't know how to talk to humans yet. Here's what I do know.")
+      im = Operationcode::Slack::Im.new(
+        user: user.id,
+        channel: @channel,
+        text: "I'm sorry. I don't know how to talk to humans yet. Here's what I do know."
+      )
       im.make_interactive_with!(HelpMenu.generate_interactive_message)
       im.deliver
     end
@@ -47,22 +51,20 @@ class Event
 
     def invite_user_to(squad)
       channel_id = Squad.channel_id_for squad
-
       log "Inviting #{user.id} (#{user.name}) to channel #{channel_id} (#{squad})"
-      if ENV['INVITE_USER'] == 'true'
-        Operationcode::Slack::Api::ChannelsInvite.post(
-          with_data: {
-            token: @token,
-            channel: channel_id,
-            user: user.id
-          }
-        )
-      end
+      return if ENV['INVITE_USER'] != 'true'
+      Operationcode::Slack::Api::ChannelsInvite.post(
+        with_data: {
+          token: @token,
+          channel: channel_id,
+          user: user.id
+        }
+      )
     end
 
     def save_user_to_airtables!
       log "Adding slack username #{user.name} to squad #{@squad} to airtables"
-      Airtables::MentorshipSquads.create({slack_username: user.name, squad: @squad})
+      Airtables::MentorshipSquads.create({ slack_username: user.name, squad: @squad })
     end
 
     def least_populated_squad

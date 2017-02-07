@@ -42,7 +42,7 @@ class Event
           text: 'Have they been greeted?',
           id: 'greeted',
           actions: [
-            {name: 'yes', text: 'Yes', value: 'yes'}
+            { name: 'yes', text: 'Yes', value: 'yes' }
           ]
         )
       )

@@ -1,14 +1,14 @@
-require "simplecov"
+require 'simplecov'
 SimpleCov.start
 
 ENV['RACK_ENV'] = 'test'
 
 require 'operationcode_bot'
 require 'minitest/autorun'
-require "mocha/mini_test"
+require 'mocha/mini_test'
 require 'rack/test'
 
-require "minitest/reporters"
+require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
 ENV['SLACK_TOKEN'] = 'test_token'

@@ -1,4 +1,5 @@
 require 'rake/testtask'
+require 'rubocop/rake_task'
 
 Rake::TestTask.new do |t|
   require "simplecov"
@@ -12,7 +13,6 @@ Rake::TestTask.new do |t|
   ENV['INVITE_USER'] = 'true'
   ENV['SLACK_CHANNEL_1ST_SQUAD'] = '1STSQUADID'
 
-
   base_dir = File.expand_path(File.dirname(__FILE__))
   lib_dir  = File.join(base_dir, "lib")
   test_dir = File.join(base_dir, "test")
@@ -24,4 +24,8 @@ Rake::TestTask.new do |t|
   t.verbose = false
 end
 
-task default: :test
+RuboCop::RakeTask.new(:rubocop) do |t|
+  t.options = ['--display-cop-names']
+end
+
+task default: [:test, :rubocop]

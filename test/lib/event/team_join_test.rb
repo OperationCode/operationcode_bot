@@ -17,7 +17,17 @@ class Event::TeamJoinTest < Minitest::Test
   end
 
   def test_it_sends_a_message_to_the_user_if_an_env_var_is_set
-    welcome_string = "Hi FAKE.USERNAME,\n\nWelcome to Operation Code! I'm a bot designed to help answer questions and get you on your\nway in our community.\n\nOur goal here at Operation Code is to get veterans and their families started on the path to\na career in programming. We do that through providing you with scholarships, mentoring, career\ndevelopment opportunities, conference tickets, and more!\n\nYou're currently in Slack, a chat application that serves as the hub of Operation Code.\nIf you're currently visiting us via your browser Slack provides a stand alone program\nto make staying in touch even more convenient. You can download it here:\nhttps://slack.com/downloads\n\nBelow you'll see a list of topics. You can click on each topic to get more info. If you\nwant to see the topics again just reply to me with any message.\n\nWant to make your first change to a program right now? Click on the 'OpCode Challenge'\nbutton to get instructions on how to make a change to this very bot!\n"
+    welcome_string = "Hi FAKE.USERNAME,\n\nWelcome to Operation Code! I'm a bot designed to help answer questions and get you on your\n" \
+      "way in our community.\n\nOur goal here at Operation Code is to get veterans and their families started on the path to\n" \
+      "a career in programming. We do that through providing you with scholarships, mentoring, career\n" \
+      "development opportunities, conference tickets, and more!\n\n" \
+      "You're currently in Slack, a chat application that serves as the hub of Operation Code.\n" \
+      "If you're currently visiting us via your browser Slack provides a stand alone program\n" \
+      "to make staying in touch even more convenient. You can download it here:\nhttps://slack.com/downloads\n\n" \
+      "Below you'll see a list of topics. You can click on each topic to get more info. If you\n" \
+      "want to see the topics again just reply to me with any message.\n\n" \
+      "Want to make your first change to a program right now? Click on the 'OpCode Challenge'\n" \
+      "button to get instructions on how to make a change to this very bot!\n".freeze
     ENV['PRODUCTION_MODE'] = 'true'
     assert_equal 'true', ENV['PRODUCTION_MODE']
     Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: welcome_string).returns(@mock_im)
@@ -45,9 +55,9 @@ class Event::TeamJoinTest < Minitest::Test
       'token' => 'FAKETOKEN',
       'type' => 'team_join',
       'event' => {
-      'user' => {
-          'id' =>'FAKEUSERID',
-          'name' =>'FAKE.USERNAME',
+        'user' => {
+          'id' => 'FAKEUSERID',
+          'name' => 'FAKE.USERNAME',
           'real_name' => 'FAKE NAME',
           'profile' => {
             'first_name' => 'FAKEFIRSTNAME',
