@@ -35,11 +35,11 @@ class Event
     def notify_staff!
       im = Operationcode::Slack::Im.new(
         channel: Event::STAFF_NOTIFICATION_CHANNEL,
-        text: ":tada: #{@user.name} has joined the slack team :tada:"
+        text: ":tada: #{@user.name} has joined the Slack team :tada:"
       )
       im.make_interactive_with!(
         Operationcode::Slack::Im::Interactive.new(
-          text: 'Have they been greeted?',
+          text: 'Have they been greeted via direct message?',
           id: 'greeted',
           actions: [
             {name: 'yes', text: 'Yes', value: 'yes'}
