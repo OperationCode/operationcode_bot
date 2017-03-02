@@ -21,5 +21,6 @@ after_success:
     docker build . -t operationcode/operationcode_bot:latest &&
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
     docker push operationcode/operationcode_bot;
+    bash ./bin/rancher_upgrade.sh
     fi
 
