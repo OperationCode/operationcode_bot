@@ -21,7 +21,7 @@ class Event
       log "Welcoming user #{resolve_user_name}"
 
       welcome_user!
-      notify_staff!
+      notify_community!
     end
 
     private
@@ -32,11 +32,11 @@ class Event
       im.deliver
     end
 
-    def notify_staff!
+    def notify_community!
       im = Operationcode::Slack::Im.new(
-        channel: Event::STAFF_NOTIFICATION_CHANNEL,
+        channel: Event::COMMUNITY_CHANNEL,
         text: ":tada: #{@user.name} has joined the Slack team :tada:"
-      )
+        )
       im.make_interactive_with!(
         Operationcode::Slack::Im::Interactive.new(
           text: 'Have they been greeted via direct message?',
