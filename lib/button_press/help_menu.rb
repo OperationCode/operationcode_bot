@@ -3,7 +3,7 @@ class ButtonPress::HelpMenu < ButtonPress
     help_klass = "HelpMenu::#{@action['name'].classify}".constantize
     Operationcode::Slack::Im.new(user: @user['id'], text: help_klass.text).deliver
     Operationcode::Slack::Im.new(
-      channel: Event::STAFF_NOTIFICATION_CHANNEL,
+      channel: Event::COMMUNITY_CHANNEL,
       text: "User #{@user['name']} has just clicked the #{@action['name']} button"
     ).deliver
     nil

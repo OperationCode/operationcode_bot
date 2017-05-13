@@ -15,7 +15,7 @@ class ButtonPress::HelpMenuTest < Minitest::Test
     mock_im.stubs(:deliver).returns(true)
 
     Operationcode::Slack::Im.expects(:new).with(user: 'test_id', text: 'Mock test item text').returns(mock_im)
-    Operationcode::Slack::Im.expects(:new).with(channel: 'G3NDEBB45', text: 'User test_user has just clicked the test_action button').returns(mock_im)
+    Operationcode::Slack::Im.expects(:new).with(channel: 'G3MD48QTD', text: 'User test_user has just clicked the test_action button').returns(mock_im)
 
     ButtonPress::HelpMenu.new(mock_data).process
   end
