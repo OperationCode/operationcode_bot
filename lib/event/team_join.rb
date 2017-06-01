@@ -35,7 +35,7 @@ class Event
     def notify_community!
       im = Operationcode::Slack::Im.new(
         channel: Event::COMMUNITY_CHANNEL,
-        text: ":tada: #{@user.name} has joined the Slack team :tada:"
+        text: ":tada: <@#{@user['id']}> has joined the Slack team :tada:"
         )
       im.make_interactive_with!(
         Operationcode::Slack::Im::Interactive.new(
