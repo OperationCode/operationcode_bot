@@ -21,7 +21,7 @@ class Event::TeamJoinTest < Minitest::Test
     ENV['PRODUCTION_MODE'] = 'true'
     assert_equal 'true', ENV['PRODUCTION_MODE']
     Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: welcome_string).returns(@mock_im)
-    Operationcode::Slack::Im.expects(:new).with(channel: 'G3MD48QTD', text: ':tada: FAKE.USERNAME has joined the Slack team :tada:').returns(@mock_im)
+    Operationcode::Slack::Im.expects(:new).with(channel: 'G3MD48QTD', text: ':tada: <@FAKEUSERID> has joined the Slack team :tada:').returns(@mock_im)
 
     Event::TeamJoin.new(mock_team_join_event).process
 
