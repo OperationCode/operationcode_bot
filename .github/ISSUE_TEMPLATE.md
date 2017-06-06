@@ -1,8 +1,21 @@
-Please use one of the following templates to create new issues:
+<!-- Please fill out one of the sections below based on the type of issue you're creating -->
+# Feature
+## What is your new feature?
 
-For a new feature: As a [VISITOR, ADMIN, ETC], When I [CONTEXT/LOCATION FOR FEATURE], It should [DESCRIBE FEATURE]
+## What should your feature do?
 
-For a bug: As a [VISITOR, ADMIN, ETC], When I [CONTEXT OF BUG] It [DESCRIBE BUG] It should [EXPECTED OUTCOME]
+---
 
-Additional Information (eg browser version, screenshots etc):
+# Bug Report
+## What is the current behavior?
 
+## What is the expected behavior?
+
+## What steps did you take to get this behavior?
+
+## Additional Info
+### Operating System
+
+### Browser
+
+### Screenshots
