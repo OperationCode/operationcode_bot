@@ -1,5 +1,5 @@
 Zeheva
-RickR 
+RickR
 smjparsons
 s_weekly
 phucledien
@@ -18,5 +18,7 @@ Clardy51
 Drew Bragg
 Bryan Malloy
 AndrewN
+<<<<<<< HEAD
 Rob Combs
 Jeff Gullidge
+artiepolanco
