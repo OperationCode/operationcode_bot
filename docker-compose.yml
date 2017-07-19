@@ -1,7 +1,7 @@
 version: '2'
 services:
   app:
-    image: operationcode/operationcode_bot
+    build: .
     environment:
       AIRTABLE_API_KEY: CHANGE_ME
       AIRTABLE_MENTORSHIP_SQUADS_KEY: CHANGE_ME
