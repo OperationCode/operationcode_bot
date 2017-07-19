@@ -40,4 +40,4 @@ users:
 EOF
 
 # Update the deployment
-KUBECONFIG=${KUBE_CONFIG} ./kubectl set image deployment/operationcode-bot operationcode-bot=operationcode/operationcode_bot:${TRAVIS_BUILD_NUMBER}
+KUBECONFIG=${KUBE_CONFIG} ./kubectl set image deployment/operationcode-bot app=operationcode/operationcode_bot:${TRAVIS_BUILD_NUMBER}
