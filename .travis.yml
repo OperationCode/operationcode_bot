@@ -17,10 +17,5 @@ addons:
 
 after_success:
   - bundle exec codeclimate-test-reporter
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker build . -t operationcode/operationcode_bot:latest &&
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
-    docker push operationcode/operationcode_bot &&
-    bash ./bin/rancher_upgrade.sh;
-    fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then bash ./bin/publish && bash ./bin/deploy; fi
 
