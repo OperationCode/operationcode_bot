@@ -16,6 +16,8 @@ PROJECT_NAME=$(grep COMPOSE_PROJECT_NAME $ROOT_DIR/.env | cut -d= -f2)
 IMAGE_NAME="${PROJECT_NAME}_app"
 IMAGE_ID=$(docker images $IMAGE_NAME:latest --format "{{.ID}}")
 
+docker images
+
 if [ -n "$DOCKER_USERNAME" ]; then echo "Found username"; fi
 if [ -n "$DOCKER_PASSWORD" ]; then echo "Found password"; fi
 
