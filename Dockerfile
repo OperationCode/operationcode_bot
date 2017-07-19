@@ -9,3 +9,5 @@ ADD Gemfile* $APP_HOME/
 RUN bundle install
 
 ADD . /app
+
+CMD ["rackup", "-p", "4567"]
