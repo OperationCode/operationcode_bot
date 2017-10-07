@@ -8,16 +8,16 @@ GIT
 
 GIT
   remote: https://github.com/OperationCode/operationcode-slack
-  revision: 8add2bb29f17b8b15c411786a6e1e296a6122dd7
+  revision: aad8cffb05d929b8dd3f9493061266ddd0e1a259
   specs:
-    operationcode-slack (0.5.0)
+    operationcode-slack (0.6.0)
       activesupport
       httparty
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.0.1)
+    activesupport (5.1.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
@@ -26,51 +26,51 @@ GEM
       httparty
     ansi (1.5.0)
     builder (3.2.3)
-    codeclimate-test-reporter (1.0.5)
-      simplecov
-    coderay (1.1.1)
-    concurrent-ruby (1.0.4)
+    codeclimate-test-reporter (1.0.8)
+      simplecov (<= 0.13)
+    coderay (1.1.2)
+    concurrent-ruby (1.0.5)
     docile (1.1.5)
-    httparty (0.14.0)
+    httparty (0.15.6)
       multi_xml (>= 0.5.2)
-    i18n (0.7.0)
-    json (2.0.3)
+    i18n (0.8.6)
+    json (2.1.0)
     metaclass (0.0.4)
-    method_source (0.8.2)
-    minitest (5.10.1)
-    minitest-reporters (1.1.14)
+    method_source (0.9.0)
+    minitest (5.10.3)
+    minitest-reporters (1.1.18)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mocha (1.2.1)
+    mocha (1.3.0)
       metaclass (~> 0.0.1)
     multi_xml (0.6.0)
-    pry (0.10.4)
+    mustermann (1.0.1)
+    pry (0.11.1)
       coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    rack (1.6.5)
-    rack-protection (1.5.3)
+      method_source (~> 0.9.0)
+    rack (2.0.3)
+    rack-protection (2.0.0)
       rack
-    rack-test (0.6.3)
-      rack (>= 1.0)
-    rake (12.0.0)
-    rb-readline (0.5.3)
-    ruby-progressbar (1.8.1)
+    rack-test (0.7.0)
+      rack (>= 1.0, < 3)
+    rake (12.1.0)
+    rb-readline (0.5.5)
+    ruby-progressbar (1.9.0)
     simplecov (0.13.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.0)
-    sinatra (1.4.7)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
-    slop (3.6.0)
-    thread_safe (0.3.5)
-    tilt (2.0.6)
-    tzinfo (1.2.2)
+    simplecov-html (0.10.2)
+    sinatra (2.0.0)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.0)
+      tilt (~> 2.0)
+    thread_safe (0.3.6)
+    tilt (2.0.8)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
 
 PLATFORMS
@@ -94,7 +94,7 @@ DEPENDENCIES
   sinatra
 
 RUBY VERSION
-   ruby 2.3.3p222
+   ruby 2.3.5p376
 
 BUNDLED WITH
-   1.13.6
+   1.15.4
