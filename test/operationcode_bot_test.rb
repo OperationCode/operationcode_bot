@@ -56,46 +56,46 @@ class OperationcodeBotTest < Minitest::Test
     assert_equal '{}', last_response.body
   end
 
-  # def test_it_welcomes_the_user_on_new_user_join
-  #   Operationcode::Airtable.any_instance.stubs(:find_by).returns(nil)
-  #   @user = mock
-  #   @user.stubs(:name).returns('FAKEUSERNAME')
-  #   ENV['PRODUCTION_MODE'] = 'true'
+  def test_it_welcomes_the_user_on_new_user_join
+    Operationcode::Airtable.any_instance.stubs(:find_by).returns(nil)
+    @user = mock
+    @user.stubs(:name).returns('FAKEUSERNAME')
+    ENV['PRODUCTION_MODE'] = 'true'
 
-  #   mock_im = mock
-  #   mock_im.expects(:deliver)
-  #   mock_im.expects(:make_interactive_with!)
+    mock_im = mock
+    mock_im.expects(:deliver)
+    mock_im.expects(:make_interactive_with!)
 
-  #   mock_notification_im = mock
-  #   mock_notification_im.expects(:deliver)
-  #   mock_notification_im.expects(:make_interactive_with!)
+    mock_notification_im = mock
+    mock_notification_im.expects(:deliver)
+    mock_notification_im.expects(:make_interactive_with!)
 
-  #   Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
-  #   Operationcode::Slack::Im.expects(:new).with(user: 'FAKEUSERID', text: "Hi FAKEUSERNAME,\n\nWelcome to Operation Code! I'm a bot designed to help answer questions and get you on your\nway in our community.\n\nPlease take a moment to review our Code of Conduct:\nhttps://github.com/OperationCode/mentorship/blob/master/CODE-OF-CONDUCT.md\n\nOur goal here at Operation Code is to get veterans and their families started on the path to\na career in programming. We do that through providing you with scholarships, mentoring, career\ndevelopment opportunities, conference tickets, and more!\n\nYou're currently in Slack, a chat application that serves as the hub of Operation Code.\nIf you're currently visiting us via your browser Slack provides a stand alone program\nto make staying in touch even more convenient. You can download it here:\nhttps://slack.com/downloads\n\nBelow you'll see a list of topics. You can click on each topic to get more info. If you\nwant to see the topics again just reply to me with any message.\n\nWant to make your first change to a program right now? Click on the 'OpCode Challenge'\nbutton to get instructions on how to make a change to this very bot!\n").returns(mock_im)
-  #   Operationcode::Slack::Im.expects(:new).with(channel: 'G3MD48QTD', text: ':tada: <@FAKEUSERID> has joined the Slack team :tada:').returns(mock_notification_im)
+    Operationcode::Slack::User.any_instance.stubs(:name).returns('FAKEUSERNAME')
+    Operationcode::Slack::Im.new(:user => 'FAKEUSERID', :text => 'Hi FAKE.USERNAME,\n\nWelcome to Operation Code! I'm a bot designed to help answer questions and get you on your\nway in our community.\n\nPlease take a moment to review our Code of Conduct:\nhttps://github.com/OperationCode/mentorship/blob/master/CODE-OF-CONDUCT.md\n\nOur goal here at Operation Code is to get veterans and their families started on the path to\na career in programming. We do that through providing you with scholarships, mentoring, career\ndevelopment opportunities, conference tickets, and more!\n\nYou're currently in Slack, a chat application that serves as the hub of Operation Code.\nIf you're currently visiting us via your browser Slack provides a stand alone program\nto make staying in touch even more convenient. You can download it here:\nhttps://slack.com/downloads\n\nBelow you'll see a list of topics. You can click on each topic to get more info. If you\nwant to see the topics again just reply to me with any message.\n\nWant to make your first change to a program right now? Click on the 'OpCode Challenge'\nbutton to get instructions on how to make a change to this very bot!\n')
+    Operationcode::Slack::Im.expects(:new).with(channel: 'G3MD48QTD', text: ':tada: <@FAKEUSERID> has joined the Slack team :tada:').returns(mock_notification_im)
 
-  #   team_join_data = {
-  #     token: 'FAKE_TOKEN',
-  #     team_id: 'TXXXXXXXX',
-  #     api_app_id: 'AXXXXXXXXX',
-  #     event: {
-  #       type: 'team_join',
-  #       event_ts: '1234567890.123456',
-  #       user: {
-  #         id: "FAKEUSERID",
-  #         name: "FAKEUSERNAME"
-  #       },
-  #     },
-  #     type: 'event_callback',
-  #     authed_users: [
-  #       'UXXXXXXX1',
-  #       'UXXXXXXX2'
-  #     ]
-  #   }
+    team_join_data = {
+      token: 'FAKE_TOKEN',
+      team_id: 'TXXXXXXXX',
+      api_app_id: 'AXXXXXXXXX',
+      event: {
+        type: 'team_join',
+        event_ts: '1234567890.123456',
+        user: {
+          id: "FAKEUSERID",
+          name: "FAKEUSERNAME"
+        },
+      },
+      type: 'event_callback',
+      authed_users: [
+        'UXXXXXXX1',
+        'UXXXXXXX2'
+      ]
+    }
 
-  #   post '/event', team_join_data.to_json
-  #   assert last_response.ok?
-  # end
+    post '/event', team_join_data.to_json
+    assert last_response.ok?
+  end
 
   def test_handles_button_presses
     button_press_data = {
