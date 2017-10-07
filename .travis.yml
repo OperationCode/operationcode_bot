@@ -9,7 +9,7 @@ services:
 
 script:
   - docker-compose build
-  - docker run operationcode_bot /bin/sh -c 'cd /app && bundle exec rake'
+  - docker run operationcodebot_app /bin/sh -c 'cd /app && bundle exec rake'
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then bash ./bin/publish && bash ./bin/deploy; fi
 
 addons:
