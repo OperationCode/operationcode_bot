@@ -8,7 +8,7 @@ services:
     - docker
 
 script:
-  - docker-compose build
+  - docker-compose build --no-cache 
   - docker run operationcode/operationcode_bot /bin/sh -c 'cd /app && bundle exec rake'
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then bash ./bin/publish && bash ./bin/deploy; fi
 
