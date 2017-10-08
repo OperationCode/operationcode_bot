@@ -10,7 +10,11 @@ class Event
     def initialize(data, token: nil, logger: nil)
       super
       @channel = data['event']['channel']
-      @template = File.read(template_path + 'welcome_message.txt.erb')
+
+    # TODO: May need better way to conditionally assign template, if we have other channels that need welcome messages
+      if @channel == Event::MENTORS_INTERNAL_CHANNEL
+        @template = File.read(template_path + 'mentor_welcome_message.txt.erb')
+      end
     end
 
     def process
@@ -20,14 +24,12 @@ class Event
 
       if @channel == Event::MENTORS_INTERNAL_CHANNEL
         welcome_mentor!
+      end
     end
 
     private
 
-    # Welcome greeting for our Slack internal mentors channel. When a new mentor joins it, we want to:
-    # * Post a welcome message
-    # * Post a link to the 'Intro to Mentoring' document
-
+    # Posts a welcome message when new mentors join our Slack internal mentors channel
     def welcome_mentor!
       im = Operationcode::Slack::Im.new(user: resolve_user_name, text: ERB.new(@template).result(binding))
       im.make_interactive_with!(HelpMenu.generate_interactive_message)
