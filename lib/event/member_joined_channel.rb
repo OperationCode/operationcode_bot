@@ -9,6 +9,7 @@ class Event
 
     def initialize(data, token: nil, logger: nil)
       super
+      @channel = data['event']['channel']
       @template = File.read(template_path + 'welcome_message.txt.erb')
     end
 
@@ -17,8 +18,8 @@ class Event
       log "Production mode: #{production_mode?}"
       log "Welcoming mentor #{resolve_user_name}"
 
-      # TODO: only call welcome_mentor if internal mentors channel was joined
-      welcome_mentor!
+      if @channel == Event::MENTORS_INTERNAL_CHANNEL
+        welcome_mentor!
     end
 
     private

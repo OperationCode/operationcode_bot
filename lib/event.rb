@@ -1,6 +1,7 @@
 # Base class for events
 class Event
   COMMUNITY_CHANNEL = 'G3MD48QTD'
+  MENTORS_INTERNAL_CHANNEL = 'G04CRMCT4'
 
   def initialize(data, token: nil, logger: nil)
     @data = data
