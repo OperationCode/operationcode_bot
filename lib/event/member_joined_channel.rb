@@ -11,7 +11,7 @@ class Event
       super
       @channel = data['event']['channel']
 
-    # TODO: May need better way to conditionally assign template, if we have other channels that need welcome messages
+    # May need better way to conditionally assign template, if we have other channels that need welcome messages
       if @channel == Event::MENTORS_INTERNAL_CHANNEL
         @template = File.read(template_path + 'mentor_welcome_message.txt.erb')
       end
