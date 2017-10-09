@@ -32,7 +32,6 @@ class Event
     # Posts a welcome message when new mentors join our Slack internal mentors channel
     def welcome_mentor!
       im = Operationcode::Slack::Im.new(user: resolve_user_name, text: ERB.new(@template).result(binding))
-      im.make_interactive_with!(HelpMenu.generate_interactive_message)
       im.deliver
     end
 
