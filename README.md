@@ -43,11 +43,14 @@ Then you'll just need to add the messages template with $CLASS_NAME_message.txt.
 
 ### Adding A New Event
 
-To create a new event simply define a new method with the same name as the method you want to handle.
+To create a new event, within the [operationcode_bot.rb](https://github.com/OperationCode/operationcode_bot/blob/master/operationcode_bot.rb) file, simply define a new `private` method with the same name as the method you want to handle.
+
 For example, if you wanted to write some code any time someone [pins an item](https://api.slack.com/events/pin_added) (the ```pin_added``` event) you would define
 a new method like so:
 
 ```ruby
+private
+
 def pin_added(data, token: nil)
   logger.add "Got pin_added event with data: #{data}"
   empty_response
