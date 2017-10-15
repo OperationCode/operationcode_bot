@@ -1,16 +1,12 @@
 # Base class for events
 class Event
   COMMUNITY_CHANNEL = 'G3MD48QTD'
+  MENTORS_INTERNAL_CHANNEL = 'G04CRMCT4'
 
   def initialize(data, token: nil, logger: nil)
     @data = data
     @token = token
     @logger = logger
-  end
-
-  # Make sure we are in dev mode unless explicitly disabled
-  def production_mode?
-    ENV['PRODUCTION_MODE'] == 'true' ? true : false
   end
 
   def template_path

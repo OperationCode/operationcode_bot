@@ -66,6 +66,16 @@ def team_join(data, token: nil)
   empty_response
 end
 
+def member_joined_channel(data, token: nil)
+  logger.info "Member joined channel: #{data}"
+
+  if data['event']['channel'] == Event::MENTORS_INTERNAL_CHANNEL
+    Event::MentorJoinedChannel.new(data, token: token, logger: logger).process
+  end
+
+  empty_response
+end
+
 def message(data, token: nil)
   logger.info "New message recieved: #{data}"
 
