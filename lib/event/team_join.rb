@@ -7,6 +7,8 @@ require 'operationcode/slack'
 #   * Have their squad and user info added to the Mentorship air table
 #   * Be invited to the squad's slack private channel
 class Event::TeamJoin < Event
+  include Common
+
   attr_reader :user
 
   def initialize(data, token: nil, logger: nil)
@@ -48,7 +50,4 @@ class Event::TeamJoin < Event
     im.deliver
   end
 
-  def resolve_user_name
-    production_mode? ? user.id : 'U08U56D5K'
-  end
 end

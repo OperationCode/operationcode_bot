@@ -4,6 +4,8 @@ require 'operationcode/slack'
 # * Post a welcome message with useful information
 
 class Event::MentorJoinedChannel < Event
+  include Common
+
   attr_reader :user
 
   def initialize(data, token: nil, logger: nil)
@@ -26,7 +28,4 @@ class Event::MentorJoinedChannel < Event
     im.deliver
   end
 
-  def resolve_user_name
-    production_mode? ? user.id : 'U08U56D5K'
-  end
 end
