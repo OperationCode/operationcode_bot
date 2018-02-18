@@ -1,5 +1,8 @@
 # [OperationCodeBot](https://github.com/OperationCode/operationcode_bot)
 
+## Notice
+This Slackbot is not currently in use on Operation Code's Slack organization. Please see https://github.com/OperationCode/operation_code_pybot for the current Slackbot in use.
+
 [![Build Status](https://travis-ci.org/OperationCode/operationcode_bot.svg?branch=master)](https://travis-ci.org/OperationCode/operationcode_bot)
 [![Code Climate](https://codeclimate.com/github/OperationCode/operationcode_bot/badges/gpa.svg)](https://codeclimate.com/github/OperationCode/operationcode_bot)
 [![Test Coverage](https://codeclimate.com/github/OperationCode/operationcode_bot/badges/coverage.svg)](https://codeclimate.com/github/OperationCode/operationcode_bot/coverage)
